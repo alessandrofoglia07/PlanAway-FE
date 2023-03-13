@@ -20,7 +20,7 @@ export const NavBar = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                    <IconButton size='large' edge='start' color='inherit' aria-label='logo' onClick={()=>{navigate('/book')}}>
+                    <IconButton size='large' edge='start' color='inherit' aria-label='logo' onClick={()=>{navigate('/')}}>
                         <CastleIcon fontSize='large' />
                     </IconButton>
                     <ThemeProvider theme={titleTheme}>
@@ -31,7 +31,7 @@ export const NavBar = () => {
                     <Stack direction='row' spacing={4}>
                         <Button color='inherit' sx={{fontSize: 20}} onClick={()=>{navigate('/book')}}>Book</Button>
                         <Button color='inherit' sx={{fontSize: 20}} onClick={()=>{navigate('/about')}}>About</Button>
-                        <Button color='inherit' sx={{fontSize: 20}}>Login</Button>
+                        <Button color='inherit' sx={{fontSize: 20}} onClick={()=>{navigate('/login')}}>Login</Button>
                     </Stack>
             </Toolbar>
         </AppBar>

@@ -1,7 +1,8 @@
 import '../App.css'
 import { useNavigate } from 'react-router-dom';
 import background from '../data/img/background.jpg'
-import { Typography, createTheme, ThemeProvider, Button } from '@mui/material';
+import { Typography, Button } from '@mui/material';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 export const MainPage = () => {
     
@@ -15,7 +16,52 @@ export const MainPage = () => {
                 'cursive'
             ].join(','),
         },
+        palette: {
+            primary: {
+                main: '#00000000'
+            }
+        }
     })
+    
+    const StyledAvatar = styled(Button)`
+        ${({ theme }) => `
+        position: absolute;
+        top: 50%;
+        right: 32%;
+        transition: ${theme.transitions.create(['background-color', 'transform'], {
+            duration: '0.8s',
+        })};
+        &:hover {
+            transform: scale(1.3);
+        }`
+    }
+    `;
+    const StyledAvatar1 = styled(Button)`
+        ${({ theme }) => `
+        position: absolute;
+        top: 50%;
+        right: 47%;
+        transition: ${theme.transitions.create(['background-color', 'transform'], {
+            duration: '0.8s',
+        })};
+        &:hover {
+            transform: scale(1.3);
+        }`
+    }
+    `;
+    const StyledAvatar2 = styled(Button)`
+        ${({ theme }) => `
+        position: absolute;
+        top: 50%;
+        right: 62%;
+        transition: ${theme.transitions.create(['background-color', 'transform'], {
+            duration: '0.8s',
+        })};
+        &:hover {
+            transform: scale(1.3);
+        }`
+    }
+    `;
 
     const windowInnerWidth : number = document.documentElement.clientWidth;
     const windowInnerHeight : number = document.documentElement.clientHeight;
@@ -33,10 +79,21 @@ export const MainPage = () => {
                 <Typography variant='h1' style={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%', right: '42%', textAlign: 'center'}}>
                     Plan your trip. Now.
                 </Typography>
-                <Button color='inherit' style={{position: 'absolute', top: '50%', right: '32%', color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}}>About</Button>
-                <Button color='inherit' style={{position: 'absolute', top: '50%', right: '47%', color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}}>Book</Button>
-                <Button color='inherit' style={{position: 'absolute', top: '50%', right: '62%', color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}}>Login</Button>
+
+                <ThemeProvider theme={titleTheme}>
+                    <StyledAvatar>
+                <Button style={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} onClick={()=>{navigate('/about')}}>About</Button>
+                    </StyledAvatar>
+                </ThemeProvider>
+                <ThemeProvider theme={titleTheme}><StyledAvatar1>
+                    <Button style={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} onClick={()=>{navigate('/book')}}>Book</Button>
+                </StyledAvatar1></ThemeProvider>
+                <ThemeProvider theme={titleTheme}><StyledAvatar2>
+                    <Button style={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} onClick={()=>{navigate('/login')}}>Login</Button>
+                </StyledAvatar2></ThemeProvider>
+                
             </div>
         </div>
     )
 }
+
