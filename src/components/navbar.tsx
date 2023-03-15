@@ -1,7 +1,6 @@
 import { AppBar, Toolbar, IconButton, Typography, Stack, createTheme, ThemeProvider, Button } from "@mui/material";
 import CastleIcon from '@mui/icons-material/Castle';
 import '../App.css'
-import { useNavigate } from 'react-router-dom';
 
 const titleTheme = createTheme({
     typography: {
@@ -13,16 +12,13 @@ const titleTheme = createTheme({
     },
 })
 
-//prova
 
 export const NavBar = () => {
 
-    const navigate = useNavigate()
-
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ background: 'linear-gradient(90deg, rgba(46,142,0,1) 0%, rgba(0,54,133,1) 90%);'}}>
             <Toolbar>
-                    <IconButton size='large' edge='start' color='inherit' aria-label='logo' onClick={()=>{navigate('/')}}>
+                    <IconButton size='large' edge='start' color='inherit' aria-label='logo' href="/">
                         <CastleIcon fontSize='large' />
                     </IconButton>
                     <ThemeProvider theme={titleTheme}>
@@ -31,9 +27,9 @@ export const NavBar = () => {
                         </Typography>
                     </ThemeProvider>
                     <Stack direction='row' spacing={4}>
-                        <Button color='inherit' sx={{fontSize: 20}} onClick={()=>{navigate('/book')}}>Book</Button>
-                        <Button color='inherit' sx={{fontSize: 20}} onClick={()=>{navigate('/about')}}>About</Button>
-                        <Button color='inherit' sx={{fontSize: 20}} onClick={()=>{navigate('/login')}}>Login</Button>
+                        <Button color='inherit' sx={{fontSize: 20}} href="/book">Book</Button>
+                        <Button color='inherit' sx={{fontSize: 20}} href="/about">About</Button>
+                        <Button color='inherit' sx={{fontSize: 20}} href="/login">Login</Button>
                     </Stack>
             </Toolbar>
         </AppBar>

@@ -1,13 +1,9 @@
 import '../App.css'
-import { useNavigate } from 'react-router-dom';
 import background from '../data/img/background.jpg'
 import { Typography, Button } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 
 export const MainPage = () => {
-    
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const navigate = useNavigate();
 
     const titleTheme = createTheme({
         typography: {
@@ -36,6 +32,7 @@ export const MainPage = () => {
         }`
     }
     `;
+
     const StyledAvatar1 = styled(Button)`
         ${({ theme }) => `
         position: absolute;
@@ -82,14 +79,14 @@ export const MainPage = () => {
 
                 <ThemeProvider theme={titleTheme}>
                     <StyledAvatar>
-                <Button style={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} onClick={()=>{navigate('/about')}}>About</Button>
+                <Button sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/about">About</Button>
                     </StyledAvatar>
                 </ThemeProvider>
                 <ThemeProvider theme={titleTheme}><StyledAvatar1>
-                    <Button style={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} onClick={()=>{navigate('/book')}}>Book</Button>
+                    <Button sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/book">Book</Button>
                 </StyledAvatar1></ThemeProvider>
                 <ThemeProvider theme={titleTheme}><StyledAvatar2>
-                    <Button style={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} onClick={()=>{navigate('/login')}}>Login</Button>
+                    <Button sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/login">Login</Button>
                 </StyledAvatar2></ThemeProvider>
                 
             </div>
