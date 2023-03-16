@@ -5,6 +5,7 @@ import { BookPage } from './pages/book'
 import { MainPage } from './pages/main';
 // eslint-disable-next-line
 import { MainPage as MainPageCopy } from './pages/main-test';
+import { AboutPage } from './pages/about';
 
 // npm start to run
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
         <Routes>
           <Route path='/' element={<MainPage/>}/>
           <Route path='/book' element={<BookPage />} />
+          <Route path='/about' element={<AboutPage />} />
         </Routes>
       </div>
     </Router>

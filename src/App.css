@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  overflow: scroll;
+  overflow-x: hidden;
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
@@ -9,6 +11,10 @@
   text-align: center;
 }
 
-.bookPage {
-  overflow: hidden;
+::-webkit-scrollbar {
+    width: 0; 
+}
+
+.aboutPage {
+  background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
