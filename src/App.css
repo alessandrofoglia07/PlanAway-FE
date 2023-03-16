@@ -8,3 +8,7 @@
 .mainPageBG {
   text-align: center;
 }
+
+.bookPage {
+  overflow: hidden;
+}

@@ -16,14 +16,14 @@ const titleTheme = createTheme({
 export const NavBar = () => {
 
     return (
-        <AppBar position="static" sx={{ background: 'linear-gradient(90deg, rgba(46,142,0,1) 0%, rgba(0,54,133,1) 90%);'}}>
+        <AppBar position="static" sx={{ background: 'linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);'}}>
             <Toolbar>
                     <IconButton size='large' edge='start' color='inherit' aria-label='logo' href="/">
                         <CastleIcon fontSize='large' />
                     </IconButton>
                     <ThemeProvider theme={titleTheme}>
                         <Typography variant='h6' sx={{flexGrow: 1}}>
-                            PlanAway.com
+                            PlanAway
                         </Typography>
                     </ThemeProvider>
                     <Stack direction='row' spacing={4}>
