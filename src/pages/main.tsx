@@ -22,6 +22,19 @@ export const MainPage = () => {
         return () => window.removeEventListener("resize", handleResize);
     }, []);
 
+    useEffect(() => {
+        const handleWheel = (e: Event) => {
+            e.preventDefault(); // prevent scrolling
+            e.stopPropagation(); // prevent scrolling on parent elements
+        };
+
+        document.body.addEventListener("wheel", handleWheel, { passive: false }); // add event listener to body
+
+        return () => {
+            document.body.removeEventListener("wheel", handleWheel); // remove event listener when component unmounts
+        };
+    }, []);
+
     const titleTheme = createTheme({
         typography: {
             fontFamily: [

@@ -1,13 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
+
 .App {
   text-align: center;
   overflow: scroll;
   overflow-x: hidden;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
-
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
-
 
 .mainPageBG {
   width: 100vw;
@@ -63,49 +62,23 @@
 }
 
 .bgShadowMainPage {
-  position: absolute;
+  position: fixed;
   top: 0px;
   left: 0px;
   background-color: black;
   opacity: 0.5;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes fadeIn1 {
-  0% {
-    opacity: 0;
-  }
-  20% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn2 {
-  0% {
-    opacity: 0;
-  }
-  30% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeIn3 {
-  0% {
-    opacity: 0;
-  }
-  40% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
+.bookingMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 1000px;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  animation: fadeIn1 1s;
 }
 
 .textMainPage {
@@ -122,4 +95,46 @@
 
 .card {
   animation: fadeIn1 0.5s;
+}
+
+@keyframes fadeIn1 {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn2 {
+  0% {
+    opacity: 0;
+  }
+
+  30% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn3 {
+  0% {
+    opacity: 0;
+  }
+
+  40% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
