@@ -23,7 +23,7 @@ export const NavBar = () => {
                         <CastleIcon fontSize='large' />
                     </IconButton>
                     <ThemeProvider theme={titleTheme}>
-                        <Typography variant='h6' sx={{flexGrow: 1}}>
+                        <Typography variant='h6' sx={{flexGrow: 1, pointerEvents: 'none'}}>
                             PlanAway
                         </Typography>
                     </ThemeProvider>

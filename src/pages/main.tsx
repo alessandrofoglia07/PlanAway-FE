@@ -1,9 +1,26 @@
+import { useEffect, useState } from 'react'
 import '../App.css'
 import background from '../data/img/background.jpg'
 import { Typography, Button } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { Stack } from '@mui/system';
 
 export const MainPage = () => {
+
+    const [spacing, setSpacing] = useState(-40);
+
+    useEffect(() => {
+        function handleResize() {
+            if (window.innerWidth >= 960) {
+                setSpacing(-40);
+            } else {
+                setSpacing(10);
+            }
+        }
+        window.addEventListener("resize", handleResize);
+        handleResize();
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     const titleTheme = createTheme({
         typography: {
@@ -23,7 +40,6 @@ export const MainPage = () => {
         ${({ theme }) => `
         position: absolute;
         top: 50%;
-        right: 32%;
         transition: ${theme.transitions.create(['background-color', 'transform'], {
             duration: '0.8s',
         })};
@@ -37,7 +53,6 @@ export const MainPage = () => {
         ${({ theme }) => `
         position: absolute;
         top: 49%;
-        right: 46%;
         transition: ${theme.transitions.create(['background-color', 'transform'], {
             duration: '0.8s',
         })};
@@ -50,7 +65,6 @@ export const MainPage = () => {
         ${({ theme }) => `
         position: absolute;
         top: 50%;
-        right: 62%;
         transition: ${theme.transitions.create(['background-color', 'transform'], {
             duration: '0.8s',
         })};
@@ -60,37 +74,42 @@ export const MainPage = () => {
     }
     `;
 
-    const windowInnerWidth : number = document.documentElement.clientWidth;
-    const windowInnerHeight : number = document.documentElement.clientHeight;
-
     return (
-        <div>
             <div>
-                <img src={background} alt='background' style={{width: '100%', height: windowInnerHeight, justifyContent: 'center', display: 'flex', zIndex: 0 }}></img>
-                <div style={{position: 'absolute', top: '0px', right: '0px', color: 'black', backgroundColor: 'black', opacity: 0.5, width: windowInnerWidth, height: windowInnerHeight}} />
+                <img src={background} className='mainPageBG' alt='background'></img>
+                <div className='bgShadowMainPage'/>
                 <ThemeProvider theme={titleTheme}>
-                    <Typography variant='h1' className='textMainPage' sx={{color: 'white', fontSize: '8rem', position: 'absolute', top: '20%', right: '34%', textAlign: 'center'}}>
-                        PlanAway
+                    <Stack direction='row' justifyContent='center'>
+                        <Typography variant='h1' className='textMainPage' sx={{color: 'white', fontSize: '8rem', position: 'absolute', top: '20%'}}>
+                            PlanAway
+                        </Typography>
+                    </Stack>
+                </ThemeProvider>
+                <Stack direction='row' justifyContent='center'>
+                    <Typography variant='h1' className='subtitleMainPage' style={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%'}}>
+                        Plan your trip. Now.
                     </Typography>
-                </ThemeProvider>
-                <Typography variant='h1' className='subtitleMainPage' style={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%', right: '42%', textAlign: 'center'}}>
-                    Plan your trip. Now.
-                </Typography>
-
-                <ThemeProvider theme={titleTheme}>
-                    <StyledAvatar>
-                <Button className='buttonMainPage' sx={{color: '#fdbb2d', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/about">About</Button>
-                    </StyledAvatar>
-                </ThemeProvider>
-                <ThemeProvider theme={titleTheme}><StyledAvatar1>
-                    <Button className='buttonMainPage' sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '45px'}} href="/book">Book</Button>
-                </StyledAvatar1></ThemeProvider>
-                <ThemeProvider theme={titleTheme}><StyledAvatar2>
-                    <Button className='buttonMainPage' sx={{color: '#22c1c3', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/login">Login</Button>
-                </StyledAvatar2></ThemeProvider>
-                
+                </Stack>
+                <Stack direction='row' alignItems='center' justifyContent='space-evenly' spacing={spacing}>
+                    <ThemeProvider theme={titleTheme}>
+                        <Stack alignItems='center'>
+                            <StyledAvatar>
+                                <Button className='buttonMainPage' sx={{color: '#fdbb2d', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/about">About</Button>
+                            </StyledAvatar>
+                        </Stack>
+                        <Stack alignItems='center'>
+                            <StyledAvatar1>
+                                <Button className='buttonMainPage' sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '45px'}} href="/book">Book</Button>
+                            </StyledAvatar1>
+                        </Stack>
+                        <Stack alignItems='center'>
+                            <StyledAvatar2>
+                                <Button className='buttonMainPage' sx={{color: '#22c1c3', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/login">Login</Button>
+                            </StyledAvatar2>
+                        </Stack>
+                    </ThemeProvider>
+                </Stack>
             </div>
-        </div>
-    )
+        )
 }
 
