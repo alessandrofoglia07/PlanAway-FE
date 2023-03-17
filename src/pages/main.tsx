@@ -69,24 +69,24 @@ export const MainPage = () => {
                 <img src={background} alt='background' style={{width: '100%', height: windowInnerHeight, justifyContent: 'center', display: 'flex', zIndex: 0 }}></img>
                 <div style={{position: 'absolute', top: '0px', right: '0px', color: 'black', backgroundColor: 'black', opacity: 0.5, width: windowInnerWidth, height: windowInnerHeight}} />
                 <ThemeProvider theme={titleTheme}>
-                    <Typography variant='h1' sx={{color: 'white', fontSize: '8rem', position: 'absolute', top: '20%', right: '34%', textAlign: 'center'}}>
+                    <Typography variant='h1' className='textMainPage' sx={{color: 'white', fontSize: '8rem', position: 'absolute', top: '20%', right: '34%', textAlign: 'center'}}>
                         PlanAway
                     </Typography>
                 </ThemeProvider>
-                <Typography variant='h1' style={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%', right: '42%', textAlign: 'center'}}>
+                <Typography variant='h1' className='subtitleMainPage' style={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%', right: '42%', textAlign: 'center'}}>
                     Plan your trip. Now.
                 </Typography>
 
                 <ThemeProvider theme={titleTheme}>
                     <StyledAvatar>
-                <Button sx={{color: '#fdbb2d', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/about">About</Button>
+                <Button className='buttonMainPage' sx={{color: '#fdbb2d', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/about">About</Button>
                     </StyledAvatar>
                 </ThemeProvider>
                 <ThemeProvider theme={titleTheme}><StyledAvatar1>
-                    <Button sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '45px'}} href="/book">Book</Button>
+                    <Button className='buttonMainPage' sx={{color: 'white', fontFamily: ['Righteous','cursive'].join(','), fontSize: '45px'}} href="/book">Book</Button>
                 </StyledAvatar1></ThemeProvider>
                 <ThemeProvider theme={titleTheme}><StyledAvatar2>
-                    <Button sx={{color: '#22c1c3', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/login">Login</Button>
+                    <Button className='buttonMainPage' sx={{color: '#22c1c3', fontFamily: ['Righteous','cursive'].join(','), fontSize: '30px'}} href="/login">Login</Button>
                 </StyledAvatar2></ThemeProvider>
                 
             </div>

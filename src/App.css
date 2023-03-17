@@ -18,3 +18,55 @@
 .aboutPage {
   background-image: linear-gradient(62deg, #FBAB7E 0%, #F7CE68 100%);
 }
+
+@keyframes fadeIn1 {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn2 {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn3 {
+  0% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.textMainPage {
+  animation: fadeIn1 2s;
+}
+
+.subtitleMainPage {
+  animation: fadeIn2 2s;
+}
+
+.buttonMainPage {
+  animation: fadeIn3 2s;
+}
+
+.card {
+  animation: fadeIn1 0.5s;
+}

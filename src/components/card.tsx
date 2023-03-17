@@ -4,7 +4,7 @@ export const Card = (props: {img: string, name: string, description: {room: stri
 
     return (
         <Box width='300px'>
-            <MuiCard elevation={8} sx={{margin: 1, padding: 1}}>
+            <MuiCard elevation={8} sx={{margin: 1, padding: 1}} className='card'>
                 <CardMedia
                 component='img'
                 height='250'
