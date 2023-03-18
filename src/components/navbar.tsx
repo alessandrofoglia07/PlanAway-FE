@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, IconButton, Typography, Stack, createTheme, ThemeProvider, Button } from "@mui/material";
 import CastleIcon from '@mui/icons-material/Castle';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import '../App.css'
 
 const titleTheme = createTheme({
@@ -13,7 +14,7 @@ const titleTheme = createTheme({
 })
 
 
-export const NavBar = () => {
+export const NavBar = (props: {cart : any}) => {
 
     return (
         <div>
@@ -31,6 +32,9 @@ export const NavBar = () => {
                         <Button color='inherit' sx={{fontSize: 20}} href="/book">Book</Button>
                         <Button color='inherit' sx={{fontSize: 20}} href="/about">About</Button>
                         <Button color='inherit' sx={{fontSize: 20}} href="/login">Login</Button>
+                        <IconButton color='inherit' aria-label='cart' href="/cart">
+                            <ShoppingCartIcon fontSize='large' />
+                        </IconButton>
                     </Stack>
             </Toolbar>
         </AppBar>

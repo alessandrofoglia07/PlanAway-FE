@@ -1,7 +1,7 @@
 import { Card as MuiCard, Box, CardContent, CardMedia, Button, Typography, CardActions } from '@mui/material'
 import { useState } from 'react'
 
-export const Card = (props: {img: string, name: string, description: {room: string, dates: string}, onData : any}) => {
+export const Card = (props: {id: number, img: string, name: string, description: {room: string, dates: string}, onData : any}) => {
 
     const [data] = useState({name: props.name, room: props.description.room, dates: props.description.dates, img: props.img})
 

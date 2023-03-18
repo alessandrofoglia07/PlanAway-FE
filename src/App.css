@@ -75,10 +75,19 @@
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 1000px;
+  width: 900px;
   z-index: 2;
   transform: translate(-50%, -50%);
   animation: fadeIn1 1s;
+}
+
+.bookingButton {
+  animation: fadeIn1 1s;
+  background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  width: 20%;
+  height: 50px;
+  position: relative;
+  top: 15px
 }
 
 .textMainPage {
