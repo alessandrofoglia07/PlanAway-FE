@@ -16,7 +16,7 @@ export const AboutPage = () => {
 
     return (
         <div className="aboutPage">
-            <NavBar cart />
+            <NavBar />
             <br/>
             <ThemeProvider theme={customTheme}>
                 <Typography variant="h1" textAlign='center' className="aboutPageTitle">

@@ -14,7 +14,7 @@ const titleTheme = createTheme({
 })
 
 
-export const NavBar = (props: {cart : any}) => {
+export const NavBar = () => {
 
     return (
         <div>

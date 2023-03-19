@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Typography, Card, CardContent, CardMedia, Button, Box, Stack, IconButton } from '@mui/material';
+import { Typography, Card, CardContent, CardMedia, Button, Box, Stack } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 export const BookingMenu = (props : {name: string, room: string, dates: string, img: string, reqToLeave: (arg: boolean) => void, addedToCart: (arg:boolean) => void}) => {

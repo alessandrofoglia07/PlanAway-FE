@@ -11,7 +11,7 @@ export const NotFoundPage = () => {
 
     return (
         <div className="notFoundPage">
-            <NavBar cart/>
+            <NavBar />
             {brs}
             <Typography variant='h1' textAlign='center' className='notFoundPageTitle'>
                 <strong>Oh no! This page doesn't exist! :(</strong>
