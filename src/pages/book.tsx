@@ -1,6 +1,6 @@
 import { NavBar } from "../components/navbar"
 import { Card } from "../components/card"
-import { Stack } from "@mui/material"
+import { Stack, Alert, Snackbar, Badge } from "@mui/material"
 import { useEffect, useState } from "react"
 import { BookingMenu } from "../components/bookingMenu"
 import { useDispatch, useSelector } from "react-redux";
@@ -15,6 +15,8 @@ export const BookPage = () => {
     const [room, setRoom] = useState('');
     const [dates, setDates] = useState('');
     const [img, setImg] = useState('');
+    const [open, setOpen] = useState(false);
+    const [openedAlerts, setOpenedAlerts] = useState(0);
     const dispatch = useDispatch();
     const cart = useSelector((state: RootState) => state.cart);
 
@@ -37,8 +39,18 @@ export const BookPage = () => {
 
     // adding to cart
     const addedToCart = () => {
-        dispatch(addToCart({name: name, room: room, dates: dates}))
-    }
+        dispatch(addToCart({name: name, room: room, dates: dates}));
+        setOpen(true)
+        setOpenedAlerts(openedAlerts + 1);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpen(false);
+        setTimeout(() => { setOpenedAlerts(0) }, 100)
+    };
 
     useEffect(() => {
         console.log(cart)
@@ -107,6 +119,11 @@ export const BookPage = () => {
                 onData={handleData}
                 />
             </Stack>
+            <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
+                <Badge badgeContent={openedAlerts} color='error'>
+                    <Alert variant="filled" severity="success" onClose={handleClose}>Item successfully added to cart.</Alert>
+                </Badge>
+            </Snackbar>
             {bookingMenu ? <BookingMenu name={name} room={room} dates={dates} img={img} reqToLeave={reqToLeave} addedToCart={addedToCart}/> : null}
         </div>
     )

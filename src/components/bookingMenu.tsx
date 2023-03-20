@@ -53,6 +53,7 @@ export const BookingMenu = (props : {name: string, room: string, dates: string, 
                                 </Typography>
                             </div>
                                 <Button 
+                                    id='addToCartButton'
                                     size='large' 
                                     className='bookingButton' 
                                     sx={{ color: 'white' }} 

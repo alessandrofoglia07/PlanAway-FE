@@ -1,7 +1,9 @@
-import { AppBar, Toolbar, IconButton, Typography, Stack, createTheme, ThemeProvider, Button } from "@mui/material";
+import { AppBar, Toolbar, IconButton, Typography, Stack, createTheme, ThemeProvider, Button, Badge, Alert } from "@mui/material";
 import CastleIcon from '@mui/icons-material/Castle';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import '../App.css'
+import '../App.css';
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const titleTheme = createTheme({
     typography: {
@@ -15,6 +17,8 @@ const titleTheme = createTheme({
 
 
 export const NavBar = () => {
+
+    const cartQuantity = useSelector((state: RootState) => state.cart.cartQuantity)
 
     return (
         <div>
@@ -33,7 +37,9 @@ export const NavBar = () => {
                         <Button color='inherit' sx={{fontSize: 20}} href="/about">About</Button>
                         <Button color='inherit' sx={{fontSize: 20}} href="/login">Login</Button>
                         <IconButton color='inherit' aria-label='cart' href="/cart">
-                            <ShoppingCartIcon fontSize='large' />
+                            <Badge badgeContent={cartQuantity} color='info'>
+                                <ShoppingCartIcon fontSize='large' />
+                            </Badge>
                         </IconButton>
                     </Stack>
             </Toolbar>
