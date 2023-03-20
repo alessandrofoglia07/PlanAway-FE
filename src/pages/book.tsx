@@ -3,8 +3,9 @@ import { Card } from "../components/card"
 import { Stack } from "@mui/material"
 import { useEffect, useState } from "react"
 import { BookingMenu } from "../components/bookingMenu"
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../redux/slices/cartSlice";
+import type { RootState } from "../redux/store";
 
 
 export const BookPage = () => {
@@ -14,6 +15,8 @@ export const BookPage = () => {
     const [room, setRoom] = useState('');
     const [dates, setDates] = useState('');
     const [img, setImg] = useState('');
+    const dispatch = useDispatch();
+    const cart = useSelector((state: RootState) => state.cart);
 
     // opened booking menu
     const handleData = (data: {name: string, room: string, dates: string, img: string}) => {
@@ -32,23 +35,15 @@ export const BookPage = () => {
         }
     };
 
-    // useEffect(() => {
-    //     console.log(cart)
-    // }, [cart])
-
     // adding to cart
-    const addedToCart = (addedToCart : boolean) => {
-        // if (addedToCart) {
-        //     console.log(name, room, dates)
-        //     if (cart.cart.includes({name: name, room: room, dates: dates})) {
-        //         console.log('Already in cart')
-        //         console.log(cart)
-        //     } else {
-        //         console.log('Added to cart')
-        //         dispatch(addToCart(name, room, dates))
-        //     }
-        // }
+    const addedToCart = () => {
+        dispatch(addToCart({name: name, room: room, dates: dates}))
     }
+
+    useEffect(() => {
+        console.log(cart)
+        console.log('cart changed')
+    }, [cart])
 
     return (
         <div className="bookPage">
