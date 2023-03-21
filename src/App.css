@@ -2,6 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
 .App {
   text-align: center;
   overflow: scroll;
@@ -29,7 +31,7 @@
 }
 
 .notFoundPageLink {
-  background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  background: linear-gradient(90deg, rgba(34, 193, 195, 1) 0%, rgb(253, 187, 45) 100%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -40,6 +42,33 @@
 
 ::-webkit-scrollbar {
     width: 0; 
+}
+
+.scrollableTable::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollableTable::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, rgba(34, 193, 195, 1) 0%, rgb(253, 187, 45) 100%);
+}
+
+.scrollableTable::-webkit-scrollbar-thumb {
+  background: #888888ad;
+}
+
+.scrollableTable::-webkit-scrollbar-thumb:hover {
+  background: #555555ad;
+}
+
+.cartPageMenu{
+  animation: fadeIn1 1s;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.cartPageCheckoutTypography {
+  font-family: 'Satisfy', cursive;
 }
 
 .aboutPage {

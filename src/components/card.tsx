@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 export const Card = (props: {id: number, img: string, name: string, description: {room: string, dates: string}, onData : any}) => {
 
-    const [data] = useState({name: props.name, room: props.description.room, dates: props.description.dates, img: props.img})
+    const [data] = useState({id: props.id, name: props.name, room: props.description.room, dates: props.description.dates, img: props.img})
 
     const sendBooking = () => {
         props.onData(data)
