@@ -16,7 +16,7 @@ export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
-        addToCart: (state, action : PayloadAction<{name: string, room: string, dates: string, id?: number}>) => {
+        addToCart: (state, action : PayloadAction<{name: string, room: string, dates: string, price: number, id: number}>) => {
             const addingItem = action.payload;
             state.cart.push(addingItem);
             state.cartQuantity += 1;

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { Typography, Card, CardContent, CardMedia, Button, Box, Stack } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
-export const BookingMenu = (props : {name: string, room: string, dates: string, img: string, reqToLeave: (arg: boolean) => void, addedToCart: (arg:boolean) => void}) => {
+export const BookingMenu = (props : {name: string, room: string, dates: string, img: string, price: number, reqToLeave: (arg: boolean) => void, addedToCart: (arg:boolean) => void}) => {
 
     useEffect(() => {
         const handleWheel = (e: Event) => {
@@ -50,6 +50,9 @@ export const BookingMenu = (props : {name: string, room: string, dates: string, 
                                 </Typography>
                                 <Typography variant='body1'>
                                     Available: {props.dates}
+                                </Typography>
+                                <Typography variant='body1'>
+                                    <b>$ {props.price}</b> night
                                 </Typography>
                             </div>
                                 <Button 

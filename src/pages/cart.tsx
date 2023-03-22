@@ -2,7 +2,7 @@
 import { Typography, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Grid, Button, IconButton } from "@mui/material";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { NavBar } from "../components/navbar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../redux/store";
@@ -23,15 +23,15 @@ export const CartPage = () => {
     const cartItems = useSelector((state: RootState) => state.cart.cart);
 
     const handleDeleteItem = (id: number) => {
-        dispatch(removeFromCart(id))
-        console.log('delete item')
+
+        dispatch(removeFromCart(id));
     }
 
     return (
-        <div className="cartPage">
+        <div>
             <NavBar/>
-            <Stack direction='row'>
-                <TableContainer className="scrollableTable" component={Paper} sx={{ maxWidth: '1500px', height: '92vh'}}>
+            <Stack direction='row' sx={{flexWrap: 'wrap'}} className='cartPage'>
+                <TableContainer className="scrollableTable" component={Paper} sx={{ width:'50vw', height: '92vh'}}>
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
@@ -44,11 +44,11 @@ export const CartPage = () => {
                         </TableHead>
                         <TableBody>
                             {cartItems.map((item) => (
-                                <TableRow key={item.id} >
+                                <TableRow key={item.id}>
                                     <TableCell sx={{ fontSize: '20px' }}>{item.name}</TableCell>
                                     <TableCell sx={{ fontSize: '20px' }}>{item.dates}</TableCell>
                                     <TableCell sx={{ fontSize: '20px' }}><i>{item.room}</i></TableCell>
-                                    <TableCell sx={{ fontSize: '20px' }}>{item.price}</TableCell>
+                                    <TableCell sx={{ fontSize: '20px' }}>${item.price}</TableCell>
                                     <TableCell>
                                         <IconButton 
                                             color='error'
@@ -62,11 +62,11 @@ export const CartPage = () => {
                      </TableBody>
                     </Table>
                 </TableContainer>
-                <Grid container justifyContent='center' >
+                <Grid container justifyContent='center' sx={{width: '40vw'}}>
                     <Stack direction='column' justifyContent='space-evenly'>
                         <ThemeProvider theme={customTheme}> 
                             <Typography variant="h1" className="cartPageCheckoutTypography" sx={{ color: '#74BF8B', textAlign: 'center'}}>
-                                Satisfied ?
+                                Satisfied?
                             </Typography>
                         </ThemeProvider>
                         <Stack direction='row' spacing={1.5}>

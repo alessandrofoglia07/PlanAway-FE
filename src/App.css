@@ -67,6 +67,20 @@
   text-align: center;
 }
 
+.removeTableRow {
+  animation: removeTableRow 2s;
+}
+
+@keyframes removeTableRow {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
 .cartPageCheckoutTypography {
   font-family: 'Satisfy', cursive;
 }
@@ -116,7 +130,7 @@
   width: 20%;
   height: 50px;
   position: relative;
-  top: 15px
+  top: 20px
 }
 
 .textMainPage {

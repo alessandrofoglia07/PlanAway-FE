@@ -1,11 +1,10 @@
 import { NavBar } from "../components/navbar"
 import { Card } from "../components/card"
 import { Stack, Alert, Snackbar, Badge } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { BookingMenu } from "../components/bookingMenu"
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/slices/cartSlice";
-import type { RootState } from "../redux/store";
 
 
 export const BookPage = () => {
@@ -15,19 +14,20 @@ export const BookPage = () => {
     const [room, setRoom] = useState('');
     const [dates, setDates] = useState('');
     const [img, setImg] = useState('');
+    const [price, setPrice] = useState<number>(Number);
     const [id, setId] = useState<number>(Number);
     const [open, setOpen] = useState(false);
     const [openedAlerts, setOpenedAlerts] = useState(0);
 
     const dispatch = useDispatch();
-    const cart = useSelector((state: RootState) => state.cart);
 
     // opened booking menu
-    const handleData = (data: {name: string, room: string, dates: string, img: string}) => {
+    const handleData = (data: {name: string, room: string, dates: string, img: string, price: number}) => {
         setName(data.name)
         setRoom(data.room)
         setDates(data.dates)
         setImg(data.img)
+        setPrice(data.price)
         setId(() => { return (new Date()).getTime()})
         setBookingMenu(true)
         console.log(data)
@@ -42,7 +42,7 @@ export const BookPage = () => {
 
     // adding to cart
     const addedToCart = () => {
-        dispatch(addToCart({id: id, name: name, room: room, dates: dates}));
+        dispatch(addToCart({id: id, name: name, room: room, dates: dates, price: price}));
         setOpen(true)
         setOpenedAlerts(openedAlerts + 1);
     };
@@ -55,11 +55,6 @@ export const BookPage = () => {
         setTimeout(() => { setOpenedAlerts(0) }, 100)
     };
 
-    useEffect(() => {
-        console.log(cart)
-        console.log('cart changed')
-    }, [cart])
-
     return (
         <div className="bookPage">
             <NavBar />
@@ -71,6 +66,7 @@ export const BookPage = () => {
                 name={"Santorini, Greece"}
                 description={{room:"Hotel room", dates:"15-18 Mar"}}
                 onData={handleData}
+                price={2200}
                 />
                 <Card
                 id={2}
@@ -78,6 +74,7 @@ export const BookPage = () => {
                 name={'Florence, Italy'}
                 description={{room: "Hotel room", dates:"1 - 3 Aug"}}
                 onData={handleData}
+                price={1500}
                 />
                 <Card
                 id={3}
@@ -85,6 +82,7 @@ export const BookPage = () => {
                 name={'Paris, France'}
                 description={{room: "Hotel room", dates:"30 Jul - 1 Aug"}}
                 onData={handleData}
+                price={1200}
                 />
                 <Card 
                 id={4}
@@ -92,6 +90,7 @@ export const BookPage = () => {
                 name="Ohio, USA"
                 description={{room: 'Chalet', dates:"29 Dec - 3 Gen"}}
                 onData={handleData}
+                price={1600}
                 />
                 <Card 
                 id={5}
@@ -99,6 +98,7 @@ export const BookPage = () => {
                 name="Catalonia, Spain"
                 description={{room: 'Apartment', dates:"10 - 12 Jul"}}
                 onData={handleData}
+                price={1800}
                 />
                 <Card 
                 id={6}
@@ -106,6 +106,7 @@ export const BookPage = () => {
                 name="Saint Paul, Brazil"
                 description={{room: 'Treehouse', dates:"23 - 29 Jun"}}
                 onData={handleData}
+                price={900}
                 />
                 <Card 
                 id={7}
@@ -113,6 +114,7 @@ export const BookPage = () => {
                 name="Antalya, Turkey"
                 description={{room: 'Cottage', dates:"31 Aug - 6 Sep"}}
                 onData={handleData}
+                price={1700}
                 />
                 <Card
                 id={8}
@@ -120,6 +122,7 @@ export const BookPage = () => {
                 name="Tokyo, Japan"
                 description={{room: 'Hotel room', dates:"20 - 24 Nov"}}
                 onData={handleData}
+                price={1600}
                 />
             </Stack>
             <Snackbar open={open} autoHideDuration={4000} onClose={handleClose}>
@@ -127,7 +130,7 @@ export const BookPage = () => {
                     <Alert variant="filled" severity="success" onClose={handleClose}>Item successfully added to cart.</Alert>
                 </Badge>
             </Snackbar>
-            {bookingMenu ? <BookingMenu name={name} room={room} dates={dates} img={img} reqToLeave={reqToLeave} addedToCart={addedToCart}/> : null}
+            {bookingMenu ? <BookingMenu name={name} room={room} dates={dates} price={price} img={img} reqToLeave={reqToLeave} addedToCart={addedToCart}/> : null}
         </div>
     )
 }

@@ -1,9 +1,9 @@
 import { Card as MuiCard, Box, CardContent, CardMedia, Button, Typography, CardActions } from '@mui/material'
 import { useState } from 'react'
 
-export const Card = (props: {id: number, img: string, name: string, description: {room: string, dates: string}, onData : any}) => {
+export const Card = (props: {id: number, img: string, name: string, description: {room: string, dates: string}, price: number, onData : any}) => {
 
-    const [data] = useState({id: props.id, name: props.name, room: props.description.room, dates: props.description.dates, img: props.img})
+    const [data] = useState({id: props.id, name: props.name, room: props.description.room, dates: props.description.dates, img: props.img, price: props.price})
 
     const sendBooking = () => {
         props.onData(data)
@@ -28,6 +28,9 @@ export const Card = (props: {id: number, img: string, name: string, description:
                         </Typography>
                         <Typography variant='body1'>
                             {props.description.dates}
+                        </Typography>
+                        <Typography variant='body1'>
+                            <b>$ {props.price}</b> night
                         </Typography>
                     </CardContent>
                     <CardActions>
