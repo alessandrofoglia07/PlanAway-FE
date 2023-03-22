@@ -72,12 +72,12 @@
 }
 
 @keyframes removeTableRow {
-  0% {
-    opacity: 1;
+0% {
+    transform: translateX(0%);
   }
 
   100% {
-    opacity: 0;
+    transform: translateX(-100%);
   }
 }
 

@@ -28,8 +28,8 @@ export const BookPage = () => {
         setDates(data.dates)
         setImg(data.img)
         setPrice(data.price)
-        setId(() => { return (new Date()).getTime()})
         setBookingMenu(true)
+        setId(() => { return Math.floor(Date.now() + Math.random() * 32489751467832) })
         console.log(data)
     };
 
@@ -42,6 +42,7 @@ export const BookPage = () => {
 
     // adding to cart
     const addedToCart = () => {
+        setId(() => { return Math.floor(Date.now() + Math.random() * 32489751467832) })
         dispatch(addToCart({id: id, name: name, room: room, dates: dates, price: price}));
         setOpen(true)
         setOpenedAlerts(openedAlerts + 1);

@@ -7,6 +7,7 @@ import { NavBar } from "../components/navbar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../redux/store";
 import { clearCart, removeFromCart } from "../redux/slices/cartSlice";
+import { useRef } from "react";
 
 const customTheme = createTheme({
     typography: {
@@ -19,12 +20,35 @@ const customTheme = createTheme({
 
 export const CartPage = () => {
 
+    const tableRowRef = useRef<HTMLTableRowElement[]>([]);
+
     const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.cart);
 
-    const handleDeleteItem = (id: number) => {
+    const handleDeleteItem = (id: number, index: number) => {
+            const tableRow = tableRowRef.current![index];
+            if (tableRow) {
+                tableRow.style.animation = "removeTableRow 0.5s";
+                setTimeout(() => {
+                    tableRow.style.animation = "";
+                    dispatch(removeFromCart(id));
+                }, 500);
+            }
+    };
 
-        dispatch(removeFromCart(id));
+    const clearCart1 = () => {
+        const tableRows = tableRowRef.current;
+        if (tableRows) {
+            tableRows.forEach((tableRow, index) => {
+                if (tableRow) {
+                    tableRow.style.animation = "removeTableRow 0.5s";
+                    setTimeout(() => {
+                        tableRow.style.animation = "";
+                        dispatch(clearCart());
+                    }, 500);
+                }
+            })
+        }
     }
 
     return (
@@ -43,8 +67,8 @@ export const CartPage = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {cartItems.map((item) => (
-                                <TableRow key={item.id}>
+                            {cartItems.map((item, index) => (
+                                <TableRow key={item.id} ref={(el) => {(tableRowRef.current![index] as HTMLTableRowElement | null) = el}}>
                                     <TableCell sx={{ fontSize: '20px' }}>{item.name}</TableCell>
                                     <TableCell sx={{ fontSize: '20px' }}>{item.dates}</TableCell>
                                     <TableCell sx={{ fontSize: '20px' }}><i>{item.room}</i></TableCell>
@@ -52,7 +76,7 @@ export const CartPage = () => {
                                     <TableCell>
                                         <IconButton 
                                             color='error'
-                                            onClick={() => {handleDeleteItem(item.id)}}
+                                            onClick={() => {handleDeleteItem(item.id, index)}}
                                             >
                                                 <ShoppingCartCheckoutIcon fontSize="large" />
                                             </IconButton>
@@ -90,7 +114,7 @@ export const CartPage = () => {
                             color='success' 
                             size="large" 
                             sx={{ backgroundColor: '#B9BD5C', color: 'white', fontSize: '20px', width: '13vw' }}
-                            onClick={()=>{dispatch(clearCart())}}
+                            onClick={clearCart1}
                             endIcon={<RemoveShoppingCartIcon />}
                             >
                                 Clear cart
