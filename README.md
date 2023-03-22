@@ -1,9 +1,9 @@
 <<<<<<< HEAD
-# About PlanAway
+# About PlanAway ✈️
 
 PlanAway is a simple booking website I made for practicing React.js and node.js.
 
-# Getting Started with Create React App
+# Getting Started with Create React App ⚛️
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
