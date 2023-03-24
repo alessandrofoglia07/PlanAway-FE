@@ -1,4 +1,4 @@
-import { Paper, Typography, Stack, TextField, Button } from '@mui/material';
+import { Paper, Typography, Stack, TextField, Button, Link } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 
@@ -93,6 +93,13 @@ export const SignUpForm = () => {
                 Submit
               </Button>
             </Stack>
+            <Link href='/login'>
+              <Stack alignItems='center'>
+              <Typography color='white' fontSize={20} sx={{ textAlign: 'center', position: 'relative', top: '5vh', pointerEvents: 'visible', width: '280px' }}>
+                Already have an account?
+              </Typography>
+              </Stack>
+            </Link>
           </form>
         </Stack>
       </Paper>

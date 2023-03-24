@@ -12,8 +12,8 @@ import { useRef } from "react";
 const customTheme = createTheme({
     typography: {
         fontFamily: [
-            'Satisfy',
-            'cursive'
+            'Futura',
+            'sans-serif'
         ].join(','),
     }
 })

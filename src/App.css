@@ -2,8 +2,6 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;700&display=swap');
 
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
-
 @font-face {
   font-family: 'Futura';
   src: url(./data/fonts/unicode.futurab.ttf) format('truetype');
@@ -89,7 +87,7 @@
   min-width: 300px;
   height: 70svh;
   height: 70vh;
-  min-height: 600px;
+  min-height: 640px;
   background: linear-gradient(135deg, #22c0c3cc 0%, rgba(253, 187, 45, 0.7) 100%)
 }
 
@@ -103,10 +101,6 @@
 
 .btnSubmit:hover {
   background: #ffffff49;
-}
-
-.cartPageCheckoutTypography {
-  font-family: 'Satisfy', cursive;
 }
 
 .aboutPage {
