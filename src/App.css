@@ -4,6 +4,11 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
+@font-face {
+  font-family: 'Futura';
+  src: url(./data/fonts/unicode.futurab.ttf) format('truetype');
+}
+
 .App {
   text-align: center;
   overflow: scroll;
@@ -11,7 +16,9 @@
 }
 
 .mainPageBG {
+  width: 100svw;
   width: 100vw;
+  height: 100svh;
   height: 100vh;
   z-index: 0;
 }
@@ -71,14 +78,31 @@
   animation: removeTableRow 2s;
 }
 
-@keyframes removeTableRow {
-0% {
-    transform: translateX(0%);
-  }
+.accessForms {
+  animation: fadeIn1 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 35svw;
+  width: 35vw;
+  min-width: 300px;
+  height: 70svh;
+  height: 70vh;
+  min-height: 600px;
+  background: linear-gradient(135deg, #22c0c3cc 0%, rgba(253, 187, 45, 0.7) 100%)
+}
 
-  100% {
-    transform: translateX(-100%);
+@media only screen and (max-width: 950px) {
+  .accessForms {
+    width: 80vw;
+    height: 60vh;
+    font-size: 30rem;
   }
+}
+
+.btnSubmit:hover {
+  background: #ffffff49;
 }
 
 .cartPageCheckoutTypography {
@@ -189,4 +213,51 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes removeTableRow {
+  0% {
+    transform: translateX(0%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media only screen and (min-height: 300px) {
+  .custom-shape-divider-bottom-1679680709 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+      transform: rotate(180deg);
+    }
+  
+    .custom-shape-divider-bottom-1679680709 svg {
+      position: relative;
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 15vh;
+    }
+  
+    .custom-shape-divider-bottom-1679680709 .shape-fill {
+      fill: #22C0C3CC;
+    }
+}
+
+@media only screen and (max-height: 700px) {
+  .custom-shape-divider-bottom-1679680709 {
+      content-visibility: hidden;
+    }
+  
+    .custom-shape-divider-bottom-1679680709 svg {
+      content-visibility: hidden;
+    }
+  
+    .custom-shape-divider-bottom-1679680709 .shape-fill {
+      content-visibility: hidden;
+    }
 }

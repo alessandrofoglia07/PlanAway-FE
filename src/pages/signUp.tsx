@@ -2,7 +2,7 @@ import React from 'react'
 import { NavBar } from '../components/navbar'
 import { SignUpForm } from '../components/signUpForm'
 
-export const signUpPage = () => {
+export const SignUpPage = () => {
   return (
     <div>
       <NavBar />

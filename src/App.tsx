@@ -8,6 +8,8 @@ import { MainPage as MainPageCopy } from './pages/main-test';
 import { AboutPage } from './pages/about';
 import { CartPage } from './pages/cart';
 import { NotFoundPage } from './pages/notFound';
+import { SignUpPage } from './pages/signUp';
+import { LoginPage } from './pages/login';
 
 // npm start to run
 export default function App() {
@@ -18,6 +20,8 @@ export default function App() {
           <Route path='/' element={<MainPage/>}/>
           <Route path='/book' element={<BookPage />} />
           <Route path='/about' element={<AboutPage />} />
+          <Route path='/signup' element={<SignUpPage />} />
+          <Route path='/login' element={<LoginPage />} />
           <Route path='/cart' element={<CartPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
