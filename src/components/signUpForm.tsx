@@ -1,4 +1,5 @@
-import { Paper, Typography, Stack, TextField, Button, Link, Alert, Snackbar } from '@mui/material';
+import { Paper, Typography, Stack, TextField, Button, Link, Alert, Snackbar, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
@@ -19,6 +20,10 @@ const InputTextField = styled(TextField)({
   '& .MuiInput-underline:hover:not(.Mui-disabled):before': {
     borderBottomColor: 'white',
   },
+  '& .MuiFormHelperText-root': {
+    color: 'white',
+    pointerEvents: 'none',
+  },
 });
 
 export const SignUpForm = () => {
@@ -30,13 +35,20 @@ export const SignUpForm = () => {
   });
   const [canSubmit, setCanSubmit] = useState(false);
   const [signupError, setSignupError] = useState(false);
+  const [signupSuccess, setSignupSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+
+  // eslint-disable-next-line no-useless-escape
+  const emailRegex = /^("(?:[!#-\[\]-\u{10FFFF}]|\\[\t -\u{10FFFF}])*"|[!#-'*+\-/-9=?A-Z\^-\u{10FFFF}](?:\.?[!#-'*+\-/-9=?A-Z\^-\u{10FFFF}])*)@([!#-'*+\-/-9=?A-Z\^-\u{10FFFF}](?:\.?[!#-'*+\-/-9=?A-Z\^-\u{10FFFF}])*|\[[!-Z\^-\u{10FFFF}]*\])$/u
+  const passwordRegex = /^(?=.*[0-9])(?=.*[!@#$%^&*])?[a-zA-Z0-9!@#$%^&*.]{8,16}$/;
 
   useEffect(() => {    
-    if (inputs.username !== '' && inputs.email !== '' && inputs.password !== '') {
+    if (inputs.username !== '' && inputs.email !== '' && inputs.password !== '' && emailRegex.test(inputs.email) && passwordRegex.test(inputs.password)) {
       setCanSubmit(true);
     } else {
       setCanSubmit(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputs])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +68,7 @@ export const SignUpForm = () => {
         setSignupError(true);
       } else if (res.data.message === 'User created') {
         console.log('%cAxios: Account created', 'color: cyan');
+        setSignupSuccess(true);
       } else if (res.status === 500) {
         console.log('Server error');
       }
@@ -64,6 +77,7 @@ export const SignUpForm = () => {
 
   const handleErrorAlertClose = () => {
     setSignupError(false);
+    setSignupSuccess(false);
   }
 
   return (
@@ -84,8 +98,8 @@ export const SignUpForm = () => {
                 color='primary'
                 size='medium'
                 onChange={handleInputChange}
-                InputProps={{ style: { color: 'white', fontSize: 30, height: '60px' } }}
-                InputLabelProps={{ style: { color: 'white', fontSize: 30 } }}
+                InputProps={{ style: { color: 'white', fontSize: 30, height: '50px' } }}
+                InputLabelProps={{ style: { color: 'white', fontSize: 26 } }}
                 sx={{ width: '25vw' }} />
               <InputTextField
                 name='email'
@@ -96,32 +110,33 @@ export const SignUpForm = () => {
                 color='primary'
                 size='medium'
                 onChange={handleInputChange}
-                InputProps={{ style: { color: 'white', fontSize: 30, height: '60px' } }}
-                InputLabelProps={{ style: { color: 'white', fontSize: 30 } }}
+                InputProps={{ style: { color: 'white', fontSize: 30, height: '50px' } }}
+                InputLabelProps={{ style: { color: 'white', fontSize: 26 } }}
                 sx={{ width: '25vw' }} />
               <InputTextField
                 name='password'
+                helperText={!canSubmit ? 'Password must be 8-16 characters long and contain at least a number' : ''}
                 value={inputs.password}
                 variant='standard'
                 label='Password'
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 color='primary'
                 size='medium'
                 onChange={handleInputChange}
-                InputProps={{ style: { color: 'white', fontSize: 30, height: '60px' } }}
-                InputLabelProps={{ style: { color: 'white', fontSize: 30 } }}
-                sx={{ width: '25vw' }} />
+                InputProps={{ style: { color: 'white', fontSize: 30, height: '50px' }, endAdornment: <IconButton sx={{color: 'white'}} onClick={()=>{setShowPassword(!showPassword)}}> {showPassword ? <Visibility fontSize='large' /> : <VisibilityOff fontSize='large' />} </IconButton>} }
+                InputLabelProps={{ style: { color: 'white', fontSize: 26 } }}
+                sx={{ width: '25vw' }}/>
               <Button
                 type='submit'
                 variant='text'
-                sx={{ fontSize: '2rem', height: '80px', width: '160px', color: 'white', position: 'relative', top: '3vh' }}
+                sx={{ fontSize: '2rem', height: '80px', width: '160px', color: 'white', position: 'relative' }}
                 className='btnSubmit'
                 disabled={!canSubmit}>
                 Submit
               </Button>
             </Stack>
             <Stack alignItems='center'>
-             <Link href='/login' sx={{ position: 'relative', top: '5vh', width: '250px', display: 'flex' }}>
+             <Link href='/login' sx={{ position: 'relative', width: '250px', display: 'flex' }}>
                 <Typography color='white' fontSize={20} sx={{ textAlign: 'center', pointerEvents: 'visible', width: '250px' }}>
                   Already have an account?
                </Typography>
@@ -137,6 +152,9 @@ export const SignUpForm = () => {
       </div>
       <Snackbar open={signupError} autoHideDuration={2000} onClose={handleErrorAlertClose}>
         <Alert severity='error' variant='filled' onClose={handleErrorAlertClose}>Email already exists.</Alert>
+      </Snackbar>
+      <Snackbar open={signupSuccess} autoHideDuration={2000} onClose={handleErrorAlertClose}>
+        <Alert severity='success' variant='filled' onClose={handleErrorAlertClose}>Account created. Go to <Link href='/login' sx={{color: 'white'}} underline='always'>Login</Link>.</Alert>
       </Snackbar>
     </div>
   )

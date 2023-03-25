@@ -1,6 +1,8 @@
-import { Paper, Typography, Stack, TextField, Button, Link } from '@mui/material';
+import { Paper, Typography, Stack, TextField, Button, Link, IconButton } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
+import Axios from 'axios';
 
 const InputTextField = styled(TextField)({
   '& .MuiInputBase-input': {
@@ -23,10 +25,10 @@ const InputTextField = styled(TextField)({
 export const LoginForm = () => {
 
   const [inputs, setInputs] = useState({
-    username: '',
     email: '',
     password: '',
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -38,6 +40,19 @@ export const LoginForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.table(inputs);
+    Axios.post('http://localhost:3002/login', inputs)
+    .then((res) => {
+      if (res.data.message === 'Login successful') {
+        console.log('%cAxios: Login successful', 'color: cyan');
+        localStorage.setItem('token', res.data.token);
+      } else if (res.data.message === 'Incorrect password') {
+        console.log('%cAxios: Incorrect password', 'color: cyan');
+      } else if (res.data.message === 'Email is not registered') {
+        console.log('%cAxios: Email is not registered', 'color: cyan');
+      } else if (res.status === 500) {
+        console.log('%cAxios: Server error', 'color: cyan');
+      }
+    })
   };
 
   return (
@@ -59,19 +74,19 @@ export const LoginForm = () => {
                 size='medium'
                 onChange={handleInputChange}
                 InputProps={{ style: { color: 'white', fontSize: 30, height: '60px' } }}
-                InputLabelProps={{ style: { color: 'white', fontSize: 30 } }}
+                InputLabelProps={{ style: { color: 'white', fontSize: 26 } }}
                 sx={{ width: '25vw' }} />
               <InputTextField
                 name='password'
                 value={inputs.password}
                 variant='standard'
                 label='Password'
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 color='primary'
                 size='medium'
                 onChange={handleInputChange}
-                InputProps={{ style: { color: 'white', fontSize: 30, height: '60px' } }}
-                InputLabelProps={{ style: { color: 'white', fontSize: 30 } }}
+                InputProps={{ style: { color: 'white', fontSize: 30, height: '60px' }, endAdornment: <IconButton sx={{ color: 'white' }} onClick={() => { setShowPassword(!showPassword) }}> {showPassword ? <Visibility fontSize='large' /> : <VisibilityOff fontSize='large' />} </IconButton> }}
+                InputLabelProps={{ style: { color: 'white', fontSize: 26 } }}
                 sx={{ width: '25vw' }} />
               <Button
                 type='submit'
