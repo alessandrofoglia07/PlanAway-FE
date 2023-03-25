@@ -255,3 +255,17 @@
       content-visibility: hidden;
     }
 }
+
+@media only screen and (max-width: 800px) {
+  .custom-shape-divider-bottom-1679680709 {
+    content-visibility: hidden;
+  }
+
+  .custom-shape-divider-bottom-1679680709 svg {
+    content-visibility: hidden;
+  }
+
+  .custom-shape-divider-bottom-1679680709 .shape-fill {
+    content-visibility: hidden;
+  }
+}

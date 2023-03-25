@@ -29,23 +29,28 @@ export const AboutPage = () => {
             <br/>
             <br/>
             <Typography variant="h4" textAlign='center' className="aboutPageText">
-                PlanAway is a travel planning website that allows users to plan their trips and share them with others.
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.   
             </Typography>
             <br/>
             <br/>
             <Typography variant="h4" textAlign='center' className="aboutPageText">
-                We are a team of 4 students from the University of Toronto, and we are currently in our 3rd year of Computer Science.
+                Ratione eius perspiciatis blanditiis iste molestias quo!
             </Typography>
             <br/>
             <br/>
             <Typography variant="h4" textAlign='center' className="aboutPageText">
-                We are passionate about travel and we hope that our website can help you plan your next trip!
+                Aspernatur quam recusandae sapiente.
             </Typography>
             <br/>
             <br/>
             <Typography variant="h4" textAlign='center' className="aboutPageText">
-                If you have any questions or concerns, please feel free to contact us
+                Nesciunt id distinctio, fugit similique eveniet dignissimos debitis doloribus maiores hic?
             </Typography>
+            <div className="custom-shape-divider-bottom-1679680709">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
+                </svg>
+            </div>
         </div>
     )
 }

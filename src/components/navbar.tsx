@@ -33,9 +33,9 @@ export const NavBar = () => {
                         </Typography>
                     </ThemeProvider>
                     <Stack direction='row' spacing={4}>
-                        <Button color='inherit' sx={{fontSize: 20}} href="/book">Book</Button>
-                        <Button color='inherit' sx={{fontSize: 20}} href="/about">About</Button>
-                        <Button color='inherit' sx={{fontSize: 20}} href="/login">Login</Button>
+                        <Button color='inherit' sx={{ fontSize: 22, textTransform: 'none'}} href="/book">Book</Button>
+                        <Button color='inherit' sx={{ fontSize: 22, textTransform: 'none' }} href="/about">About</Button>
+                        <Button color='inherit' sx={{ fontSize: 22, textTransform: 'none' }} href="/login">Login</Button>
                         <IconButton color='inherit' aria-label='cart' href="/cart">
                             <Badge badgeContent={cartQuantity} color='info'>
                                 <ShoppingCartIcon fontSize='large' />

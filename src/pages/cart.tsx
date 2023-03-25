@@ -1,22 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Typography, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Grid, Button, IconButton } from "@mui/material";
+import { Typography, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton } from "@mui/material";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { NavBar } from "../components/navbar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../redux/store";
 import { clearCart, removeFromCart } from "../redux/slices/cartSlice";
 import { useRef } from "react";
-
-const customTheme = createTheme({
-    typography: {
-        fontFamily: [
-            'Futura',
-            'sans-serif'
-        ].join(','),
-    }
-})
 
 export const CartPage = () => {
 
@@ -54,8 +44,8 @@ export const CartPage = () => {
     return (
         <div>
             <NavBar/>
-            <Stack direction='row' sx={{flexWrap: 'wrap'}} className='cartPage'>
-                <TableContainer className="scrollableTable" component={Paper} sx={{ width:'50vw', height: '92vh'}}>
+            <Stack direction='row' sx={{flexWrap: 'wrap'}} className='cartPage' justifyContent='center'>
+                <TableContainer className="scrollableTable" component={Paper} sx={{height: 'calc(95vh - 120px)', width: '70vw'}}>
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
@@ -86,26 +76,19 @@ export const CartPage = () => {
                      </TableBody>
                     </Table>
                 </TableContainer>
-                <Grid container justifyContent='center' sx={{width: '40vw'}}>
-                    <Stack direction='column' justifyContent='space-evenly'>
-                        <ThemeProvider theme={customTheme}> 
-                            <Typography variant="h1" className="cartPageCheckoutTypography" sx={{ color: '#74BF8B', textAlign: 'center'}}>
-                                Satisfied?
-                            </Typography>
-                        </ThemeProvider>
-                        <Stack direction='row' spacing={1.5}>
+                        <Stack direction='row' justifyContent='space-around' sx={{position: 'absolute', bottom: '15px', width: '100vw'}}>
                             <Button 
-                            variant="contained" 
+                            variant="contained"    
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#5DBF9A', color: 'white', fontSize: '20px', width: '13vw' }}>
+                            sx={{ backgroundColor: '#5DBF9A', color: 'white', fontSize: '20px', minWidth: '200px'}}>
                                 Confirm purchase
                             </Button>
                             <Button 
                             variant="contained" 
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#91BE77', color: 'white', fontSize: '20px', width: '13vw' }}
+                            sx={{ backgroundColor: '#91BE77', color: 'white', fontSize: '20px', minWidth: '200px' }}
                             href='/book'>
                                 Continue booking
                             </Button>
@@ -113,15 +96,13 @@ export const CartPage = () => {
                             variant="contained" 
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#B9BD5C', color: 'white', fontSize: '20px', width: '13vw' }}
+                            sx={{ backgroundColor: '#B9BD5C', color: 'white', fontSize: '20px', minWidth: '200px' }}
                             onClick={clearCart1}
                             endIcon={<RemoveShoppingCartIcon />}
                             >
                                 Clear cart
                             </Button>
                         </Stack>
-                    </Stack>
-                </Grid>
             </Stack>
         </div>
     );

@@ -1,4 +1,4 @@
-import { Paper, Typography, Stack, TextField, Button, Link, IconButton } from '@mui/material';
+import { Paper, Typography, Stack, TextField, Button, Link, IconButton, Snackbar, Alert } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
@@ -29,6 +29,9 @@ export const LoginForm = () => {
     password: '',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [incorrectPwdError, setIncorrectPwdError] = useState(false);
+  const [emailNotRegisteredError, setEmailNotRegisteredError] = useState(false);
+  const [serverError, setServerError] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -47,12 +50,21 @@ export const LoginForm = () => {
         localStorage.setItem('token', res.data.token);
       } else if (res.data.message === 'Incorrect password') {
         console.log('%cAxios: Incorrect password', 'color: cyan');
+        setIncorrectPwdError(true);
       } else if (res.data.message === 'Email is not registered') {
         console.log('%cAxios: Email is not registered', 'color: cyan');
+        setEmailNotRegisteredError(true);
       } else if (res.status === 500) {
         console.log('%cAxios: Server error', 'color: cyan');
+        setServerError(true);
       }
     })
+  };
+
+  const handleAlertClose = () => {
+    setIncorrectPwdError(false);
+    setEmailNotRegisteredError(false);
+    setServerError(false);
   };
 
   return (
@@ -111,6 +123,21 @@ export const LoginForm = () => {
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
         </svg>
       </div>
+      <Snackbar open={incorrectPwdError} onClose={handleAlertClose} autoHideDuration={2000}>
+        <Alert severity='error' variant='filled' onClose={handleAlertClose}>
+          Incorrect password.
+        </Alert>
+      </Snackbar>
+      <Snackbar open={emailNotRegisteredError} onClose={handleAlertClose} autoHideDuration={2000}>
+        <Alert severity='error' variant='filled' onClose={handleAlertClose}>
+          Email is not registered.
+        </Alert>
+      </Snackbar>
+      <Snackbar open={serverError} onClose={handleAlertClose} autoHideDuration={2000}>
+        <Alert severity='error' variant='filled' onClose={handleAlertClose}>
+          Server error 500
+        </Alert>
+      </Snackbar>
     </div>
   )
 }
