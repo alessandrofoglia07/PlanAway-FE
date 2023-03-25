@@ -81,13 +81,13 @@ export const LoginForm = () => {
                 Submit
               </Button>
             </Stack>
-            <Link href='/signup'>
-              <Stack alignItems='center'>
-                <Typography color='white' fontSize={20} sx={{ textAlign: 'center', position: 'relative', top: '8vh', pointerEvents: 'visible', width: '280px' }}>
-                  Don't have an account?
-                </Typography>
-              </Stack>
-            </Link>
+            <Stack alignItems='center'>
+              <Link href='/signup' sx={{ position: 'relative', top: '8vh', width: '230px' }}>
+                 <Typography color='white' fontSize={20} sx={{ textAlign: 'center', pointerEvents: 'visible', width: '230px' }}>
+                    Don't have an account?
+                  </Typography>
+              </Link>
+            </Stack>
           </form>
         </Stack>
       </Paper>

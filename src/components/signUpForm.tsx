@@ -1,6 +1,7 @@
-import { Paper, Typography, Stack, TextField, Button, Link } from '@mui/material';
+import { Paper, Typography, Stack, TextField, Button, Link, Alert, Snackbar } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Axios from 'axios';
 
 const InputTextField = styled(TextField)({
   '& .MuiInputBase-input': {
@@ -27,6 +28,16 @@ export const SignUpForm = () => {
     email: '',
     password: '',
   });
+  const [canSubmit, setCanSubmit] = useState(false);
+  const [signupError, setSignupError] = useState(false);
+
+  useEffect(() => {    
+    if (inputs.username !== '' && inputs.email !== '' && inputs.password !== '') {
+      setCanSubmit(true);
+    } else {
+      setCanSubmit(false);
+    }
+  }, [inputs])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -38,7 +49,22 @@ export const SignUpForm = () => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.table(inputs);
+    Axios.post('http://localhost:3002/signup', inputs)
+    .then((res)=>{
+      if (res.data.message === 'Email is already registered') {
+        console.log('%cAxios: Email already exists', 'color: cyan');
+        setSignupError(true);
+      } else if (res.data.message === 'User created') {
+        console.log('%cAxios: Account created', 'color: cyan');
+      } else if (res.status === 500) {
+        console.log('Server error');
+      }
+    })
   };
+
+  const handleErrorAlertClose = () => {
+    setSignupError(false);
+  }
 
   return (
     <div>
@@ -89,17 +115,18 @@ export const SignUpForm = () => {
                 type='submit'
                 variant='text'
                 sx={{ fontSize: '2rem', height: '80px', width: '160px', color: 'white', position: 'relative', top: '3vh' }}
-                className='btnSubmit'>
+                className='btnSubmit'
+                disabled={!canSubmit}>
                 Submit
               </Button>
             </Stack>
-            <Link href='/login'>
-              <Stack alignItems='center'>
-              <Typography color='white' fontSize={20} sx={{ textAlign: 'center', position: 'relative', top: '5vh', pointerEvents: 'visible', width: '280px' }}>
-                Already have an account?
-              </Typography>
-              </Stack>
-            </Link>
+            <Stack alignItems='center'>
+             <Link href='/login' sx={{ position: 'relative', top: '5vh', width: '250px', display: 'flex' }}>
+                <Typography color='white' fontSize={20} sx={{ textAlign: 'center', pointerEvents: 'visible', width: '250px' }}>
+                  Already have an account?
+               </Typography>
+              </Link>
+            </Stack>
           </form>
         </Stack>
       </Paper>
@@ -108,6 +135,9 @@ export const SignUpForm = () => {
           <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" className="shape-fill"></path>
         </svg>
       </div>
+      <Snackbar open={signupError} autoHideDuration={2000} onClose={handleErrorAlertClose}>
+        <Alert severity='error' variant='filled' onClose={handleErrorAlertClose}>Email already exists.</Alert>
+      </Snackbar>
     </div>
   )
 }
