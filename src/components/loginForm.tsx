@@ -3,6 +3,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { useState } from 'react';
 import Axios from 'axios';
+import { useSignIn } from 'react-auth-kit';
 
 const InputTextField = styled(TextField)({
   '& .MuiInputBase-input': {
@@ -32,6 +33,7 @@ export const LoginForm = () => {
   const [incorrectPwdError, setIncorrectPwdError] = useState(false);
   const [emailNotRegisteredError, setEmailNotRegisteredError] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const signIn = useSignIn();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -47,7 +49,16 @@ export const LoginForm = () => {
     .then((res) => {
       if (res.data.message === 'Login successful') {
         console.log('%cAxios: Login successful', 'color: cyan');
-        localStorage.setItem('token', res.data.token);
+        signIn({
+          token: res.data.token,
+          expiresIn: 3600,
+          tokenType: 'Bearer',
+          authState: {
+            email: res.data.email,
+            username: res.data.username,
+          }
+        })
+
       } else if (res.data.message === 'Incorrect password') {
         console.log('%cAxios: Incorrect password', 'color: cyan');
         setIncorrectPwdError(true);
