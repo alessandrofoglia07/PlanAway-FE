@@ -11,7 +11,7 @@ export const MainPage = () => {
 
     useEffect(() => {
         function handleResize() {
-            if (window.innerWidth >= 960) {
+            if (window.innerWidth >= 1200) {
                 setSpacing(-40);
             } else {
                 setSpacing(10);

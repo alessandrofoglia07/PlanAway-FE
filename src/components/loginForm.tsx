@@ -1,9 +1,10 @@
 import { Paper, Typography, Stack, TextField, Button, Link, IconButton, Snackbar, Alert } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Axios from 'axios';
-import { useSignIn } from 'react-auth-kit';
+import { useSignIn, useAuthUser } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 const InputTextField = styled(TextField)({
   '& .MuiInputBase-input': {
@@ -25,6 +26,11 @@ const InputTextField = styled(TextField)({
 
 export const LoginForm = () => {
 
+  // hooks
+  const signIn = useSignIn();
+  const navigate = useNavigate();
+  const auth = useAuthUser();
+
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -33,7 +39,13 @@ export const LoginForm = () => {
   const [incorrectPwdError, setIncorrectPwdError] = useState(false);
   const [emailNotRegisteredError, setEmailNotRegisteredError] = useState(false);
   const [serverError, setServerError] = useState(false);
-  const signIn = useSignIn();
+
+  useEffect(()=>{
+    if (auth()) {
+      navigate('/profile');
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -49,16 +61,19 @@ export const LoginForm = () => {
     .then((res) => {
       if (res.data.message === 'Login successful') {
         console.log('%cAxios: Login successful', 'color: cyan');
-        signIn({
+        if (signIn({
           token: res.data.token,
-          expiresIn: 3600,
+          expiresIn: 28800,
           tokenType: 'Bearer',
           authState: {
             email: res.data.email,
             username: res.data.username,
           }
-        })
-
+        })) {
+          navigate('/profile')
+        } else {
+          console.error('Error: Failed to sign in');
+        }
       } else if (res.data.message === 'Incorrect password') {
         console.log('%cAxios: Incorrect password', 'color: cyan');
         setIncorrectPwdError(true);
