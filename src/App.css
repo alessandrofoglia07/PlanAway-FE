@@ -91,12 +91,37 @@
   background: linear-gradient(135deg, #22c0c3cc 0%, rgba(253, 187, 45, 0.7) 100%)
 }
 
+.profileDashboard {
+  animation: fadeIn1 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 45svw;
+    width: 45vw;
+    min-width: 300px;
+    height: 70svh;
+    height: 70vh;
+    min-height: 640px;
+    background: linear-gradient(135deg, #22c0c3cc 0%, rgba(253, 187, 45, 0.7) 100%)
+}
+
+
+
 @media only screen and (max-width: 1100px) {
   .accessForms {
     width: 65vw;
     height: 60vh;
     font-size: 30rem;
   }
+}
+
+@media only screen and (max-width: 1250px) {
+  .profileDashboard {
+      width: 65vw;
+      height: 90vh;
+      font-size: 30rem;
+    }
 }
 
 .btnSubmit:hover {
