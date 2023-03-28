@@ -88,7 +88,7 @@
   height: 70svh;
   height: 70vh;
   min-height: 640px;
-  background: linear-gradient(135deg, #22c0c3cc 0%, rgba(253, 187, 45, 0.7) 100%)
+  background: linear-gradient(135deg, #22c0c3cc 0%, rgba(253, 187, 45, 0.7) 100%);
 }
 
 .profileDashboard {

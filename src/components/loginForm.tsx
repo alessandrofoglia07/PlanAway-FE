@@ -39,6 +39,7 @@ export const LoginForm = () => {
   const [incorrectPwdError, setIncorrectPwdError] = useState(false);
   const [emailNotRegisteredError, setEmailNotRegisteredError] = useState(false);
   const [serverError, setServerError] = useState(false);
+  const [elevation, setElevation] = useState(12);
 
   useEffect(()=>{
     if (auth()) {
@@ -46,6 +47,18 @@ export const LoginForm = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(()=>{
+    const form = document.getElementById('paper');
+    if (form) {
+      form.addEventListener('mouseover', () => {
+        setElevation(24);
+      });
+      form.addEventListener('mouseleave', () => {
+        setElevation(12);
+      });
+    }
+  })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -95,7 +108,7 @@ export const LoginForm = () => {
 
   return (
     <div>
-      <Paper elevation={12} className='accessForms'>
+      <Paper elevation={elevation} className='accessForms' id='paper'>
         <Stack justifyContent='center' spacing={13}>
           <Typography color='white' fontSize={60} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '2vh' }}>
             Login

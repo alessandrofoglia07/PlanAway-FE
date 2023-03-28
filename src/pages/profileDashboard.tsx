@@ -3,6 +3,7 @@ import { NavBar } from '../components/navbar';
 import PersonIcon from '@mui/icons-material/Person';
 import { Paper, Typography, Stack, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useState, useEffect } from 'react';
 
 export const ProfileDashboardPage = () => {
 
@@ -14,6 +15,20 @@ export const ProfileDashboardPage = () => {
         },
     });
 
+    const [elevation, setElevation] = useState(12);
+
+    useEffect(()=>{
+        const form = document.getElementById('paper');
+        if (form) {
+            form.addEventListener('mouseover', () => {
+                setElevation(24);
+            });
+            form.addEventListener('mouseleave', () => {
+                setElevation(12);
+            });
+        }
+    }, []);
+
     const auth = useAuthUser();
     const signOut = useSignOut();
 
@@ -24,7 +39,7 @@ export const ProfileDashboardPage = () => {
     return (
         <div>
             <NavBar />
-            <Paper elevation={12} className='profileDashboard'>
+            <Paper elevation={elevation} className='profileDashboard' id='paper'>
                 <Stack justifyContent='center' spacing={10}>
                     <PersonIcon sx={{ fontSize: 130, color: 'white', position: 'relative', top: '50px', alignSelf: 'center' }} />
                     <Typography color='white' fontSize={60} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-10px' }}>

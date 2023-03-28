@@ -37,6 +37,7 @@ export const SignUpForm = () => {
   const [signupError, setSignupError] = useState(false);
   const [signupSuccess, setSignupSuccess] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [elevation, setElevation] = useState(12);
 
   // eslint-disable-next-line no-useless-escape
   const emailRegex = /^("(?:[!#-\[\]-\u{10FFFF}]|\\[\t -\u{10FFFF}])*"|[!#-'*+\-/-9=?A-Z\^-\u{10FFFF}](?:\.?[!#-'*+\-/-9=?A-Z\^-\u{10FFFF}])*)@([!#-'*+\-/-9=?A-Z\^-\u{10FFFF}](?:\.?[!#-'*+\-/-9=?A-Z\^-\u{10FFFF}])*|\[[!-Z\^-\u{10FFFF}]*\])$/u
@@ -49,7 +50,19 @@ export const SignUpForm = () => {
       setCanSubmit(false);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [inputs])
+  }, [inputs]);
+
+  useEffect(() => {
+    const form = document.getElementById('paper');
+    if (form) {
+      form.addEventListener('mouseover', () => {
+        setElevation(24);
+      });
+      form.addEventListener('mouseleave', () => {
+        setElevation(12);
+      });
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({
@@ -82,7 +95,7 @@ export const SignUpForm = () => {
 
   return (
     <div>
-      <Paper elevation={12} className='accessForms'>
+      <Paper elevation={elevation} className='accessForms' id='paper'>
         <Stack justifyContent='center' spacing={10}>
           <Typography color='white' fontSize={60} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '2vh' }}>
             Sign Up
