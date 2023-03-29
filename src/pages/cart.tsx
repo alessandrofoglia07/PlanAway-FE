@@ -1,12 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Typography, TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton } from "@mui/material";
+import {  TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton } from "@mui/material";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { NavBar } from "../components/navbar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../redux/store";
 import { clearCart, removeFromCart } from "../redux/slices/cartSlice";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 export const CartPage = () => {
 
@@ -14,6 +13,13 @@ export const CartPage = () => {
 
     const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.cart);
+
+    useEffect(() => {
+        const title = document.title;
+        if (title.includes('Cart') === false) {
+            document.title = 'PlanAway | Cart';
+        }
+    }, []);
 
     const handleDeleteItem = (id: number, index: number) => {
             const tableRow = tableRowRef.current![index];

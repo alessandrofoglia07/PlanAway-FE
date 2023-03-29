@@ -2,8 +2,16 @@ import { NavBar } from "../components/navbar"
 import '../App.css'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Typography } from "@mui/material";
+import { useEffect } from "react";
 
 export const AboutPage = () => { 
+
+    useEffect(() => {
+        const title = document.title;
+        if (title.includes('About') === false) {
+            document.title = 'PlanAway | About';
+        }
+    }, []);
 
     const customTheme = createTheme({
         typography: {

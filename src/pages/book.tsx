@@ -1,7 +1,7 @@
 import { NavBar } from "../components/navbar"
 import { Card } from "../components/card"
 import { Stack, Alert, Snackbar, Badge } from "@mui/material"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { BookingMenu } from "../components/bookingMenu"
 import { useDispatch } from "react-redux";
 import { addToCart } from "../redux/slices/cartSlice";
@@ -20,6 +20,13 @@ export const BookPage = () => {
     const [openedAlerts, setOpenedAlerts] = useState(0);
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        const title = document.title;
+        if (title.includes('Book') === false) {
+            document.title = 'PlanAway | Book';
+        }
+    }, []);
 
     // opened booking menu
     const handleData = (data: {name: string, room: string, dates: string, img: string, price: number}) => {

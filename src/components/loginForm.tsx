@@ -58,7 +58,7 @@ export const LoginForm = () => {
         setElevation(12);
       });
     }
-  })
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputs((initState) => ({

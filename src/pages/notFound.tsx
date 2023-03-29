@@ -1,8 +1,16 @@
+import { useEffect } from 'react';
 import { Typography, Link } from '@mui/material';
 import { Stack } from '@mui/system';
 import { NavBar } from '../components/navbar';
 
 export const NotFoundPage = () => {
+
+    useEffect(() => {
+        const title = document.title;
+        if (title.includes('404') === false) {
+            document.title = 'PlanAway | 404';
+        }
+    }, []);
 
     const brs = [];
     for (let i = 0; i < 10; i++) {

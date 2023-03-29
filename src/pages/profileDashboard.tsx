@@ -17,6 +17,13 @@ export const ProfileDashboardPage = () => {
 
     const [elevation, setElevation] = useState(12);
 
+    useEffect(() => {
+        const title = document.title;
+        if (title.includes('Profile') === false) {
+            document.title = 'PlanAway | Profile';
+        }
+    }, []);
+
     useEffect(()=>{
         const form = document.getElementById('paper');
         if (form) {
