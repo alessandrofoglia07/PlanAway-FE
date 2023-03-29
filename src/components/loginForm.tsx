@@ -79,6 +79,7 @@ export const LoginForm = () => {
           expiresIn: 28800,
           tokenType: 'Bearer',
           authState: {
+            id: res.data.id,
             email: res.data.email,
             username: res.data.username,
           }

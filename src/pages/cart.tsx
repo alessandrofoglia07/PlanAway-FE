@@ -1,11 +1,13 @@
-import {  TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton } from "@mui/material";
+import {  TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton, Snackbar, Alert } from "@mui/material";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { NavBar } from "../components/navbar";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../redux/store";
 import { clearCart, removeFromCart } from "../redux/slices/cartSlice";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import Axios from "axios";
+import { useAuthUser } from "react-auth-kit";
 
 export const CartPage = () => {
 
@@ -13,6 +15,26 @@ export const CartPage = () => {
 
     const dispatch = useDispatch();
     const cartItems = useSelector((state: RootState) => state.cart.cart);
+    const [totalPrice, setTotalPrice] = useState(0);
+    const [notLoggedInError, setNotLoggedInError] = useState(false);
+    const [successfulPurchase, setSuccessfulPurchase] = useState(false);
+    const [emptyCartError, setEmptyCartError] = useState(false);
+
+    const auth = useAuthUser();
+
+    useEffect(()=>{
+        setTotalPrice(
+            function () {
+                let price = 0;
+                // eslint-disable-next-line array-callback-return
+                cartItems.map((item) => {
+                    price += item.price;
+                })
+                return price;
+            }
+        )
+    }, [cartItems])
+
 
     useEffect(() => {
         const title = document.title;
@@ -20,6 +42,12 @@ export const CartPage = () => {
             document.title = 'PlanAway | Cart';
         }
     }, []);
+
+    const handleAlertClose = () => {
+        setNotLoggedInError(false);
+        setSuccessfulPurchase(false);
+        setEmptyCartError(false);
+    };
 
     const handleDeleteItem = (id: number, index: number) => {
             const tableRow = tableRowRef.current![index];
@@ -45,7 +73,29 @@ export const CartPage = () => {
                 }
             })
         }
-    }
+    };
+
+    const handleConfirm = (e: any) => {
+        e.preventDefault();
+        let items : string[] = [];
+        // eslint-disable-next-line array-callback-return
+        cartItems.map((item) => {
+            items.push(item.name);
+        });
+        if (auth() == null) {
+            setNotLoggedInError(true);
+            return;
+        } else if (auth() != null && cartItems.length > 0) {
+            Axios.post('http://localhost:3002/purchases', {
+                    user_id: auth()!.id,
+                    cartItems: JSON.stringify(items),
+                    price: totalPrice,
+            });
+            setSuccessfulPurchase(true);
+        } else if (auth() != null && cartItems.length === 0) {
+            setEmptyCartError(true);
+        }
+    };
 
     return (
         <div>
@@ -87,8 +137,9 @@ export const CartPage = () => {
                             variant="contained"    
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#5DBF9A', color: 'white', fontSize: '20px', minWidth: '200px'}}>
-                                Confirm purchase
+                            sx={{ backgroundColor: '#5DBF9A', color: 'white', fontSize: '20px', minWidth: '200px'}}
+                            onClick={handleConfirm}>
+                                Confirm purchase of <br /> ${totalPrice}
                             </Button>
                             <Button 
                             variant="contained" 
@@ -110,6 +161,21 @@ export const CartPage = () => {
                             </Button>
                         </Stack>
             </Stack>
+            <Snackbar open={notLoggedInError} onClose={handleAlertClose} autoHideDuration={3000}>
+                <Alert onClose={handleAlertClose} severity="error" variant="filled">
+                    Please log in to continue.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={emptyCartError} onClose={handleAlertClose} autoHideDuration={3000}>
+                <Alert onClose={handleAlertClose} severity="error" variant="filled">
+                    Please add items to your cart to continue.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={successfulPurchase} onClose={handleAlertClose} autoHideDuration={3000}>
+                <Alert onClose={handleAlertClose} severity="success" variant="filled">
+                    Thank you for your purchase! You will receive an email with your booking details shortly.
+                </Alert>
+            </Snackbar>
         </div>
     );
 };

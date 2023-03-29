@@ -4,6 +4,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import '../App.css';
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { useAuthUser } from "react-auth-kit";
 
 const titleTheme = createTheme({
     typography: {
@@ -18,7 +19,20 @@ const titleTheme = createTheme({
 
 export const NavBar = () => {
 
-    const cartQuantity = useSelector((state: RootState) => state.cart.cartQuantity)
+    const auth = useAuthUser();
+    const cartQuantity = useSelector((state: RootState) => state.cart.cartQuantity);
+
+    const loginText = () => {
+        if (auth()) {
+            if (auth()!.username.length > 5) {
+                return auth()!.username.substring(0, 5) + '...';
+            } else {
+                return auth()!.username;
+            }
+        } else {
+            return 'Login';
+        }
+    };
 
     return (
         <div>
@@ -35,7 +49,7 @@ export const NavBar = () => {
                     <Stack direction='row' spacing={4}>
                         <Button color='inherit' sx={{ fontSize: 22, textTransform: 'none'}} href="/book">Book</Button>
                         <Button color='inherit' sx={{ fontSize: 22, textTransform: 'none' }} href="/about">About</Button>
-                        <Button color='inherit' sx={{ fontSize: 22, textTransform: 'none' }} href="/login">Login</Button>
+                        <Button color='inherit' href="/login"><Typography sx={{ fontSize: 22, textTransform: 'none' }}>{loginText()}</Typography></Button>
                         <IconButton color='inherit' aria-label='cart' href="/cart">
                             <Badge badgeContent={cartQuantity} color='info'>
                                 <ShoppingCartIcon fontSize='large' />
