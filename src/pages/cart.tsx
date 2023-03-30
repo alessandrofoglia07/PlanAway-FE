@@ -19,6 +19,9 @@ export const CartPage = () => {
     const [notLoggedInError, setNotLoggedInError] = useState(false);
     const [successfulPurchase, setSuccessfulPurchase] = useState(false);
     const [emptyCartError, setEmptyCartError] = useState(false);
+    const [notEnoughMoneyError, setNotEnoughMoneyError] = useState(false);
+    const [unknownError, setUnknownError] = useState(false);
+    const [balance, setBalance] = useState(0);
 
     const auth = useAuthUser();
 
@@ -41,12 +44,28 @@ export const CartPage = () => {
         if (title.includes('Cart') === false) {
             document.title = 'PlanAway | Cart';
         }
-    }, []);
+        getBalance();
+    });
+
+    const getBalance = () => {
+        const user_id: number = auth()!.id;
+        Axios.get('http://localhost:3002/getBalance', { params: { user_id: user_id } })
+            .then((res) => {
+                if (res.status === 201) {
+                    setBalance(res.data.balance);
+                } else if (res.status === 500) {
+                    alert('Server error');
+                    console.log('Server error');
+                }
+            })
+    };
 
     const handleAlertClose = () => {
         setNotLoggedInError(false);
         setSuccessfulPurchase(false);
         setEmptyCartError(false);
+        setNotEnoughMoneyError(false);
+        setUnknownError(false);
     };
 
     const handleDeleteItem = (id: number, index: number) => {
@@ -85,15 +104,20 @@ export const CartPage = () => {
         if (auth() == null) {
             setNotLoggedInError(true);
             return;
-        } else if (auth() != null && cartItems.length > 0) {
+        } else if (auth() != null && cartItems.length > 0 && balance >= totalPrice) {
             Axios.post('http://localhost:3002/purchases', {
                     user_id: auth()!.id,
                     cartItems: JSON.stringify(items),
                     price: totalPrice,
             });
             setSuccessfulPurchase(true);
-        } else if (auth() != null && cartItems.length === 0) {
+            clearCart1();
+        } else if (auth() != null && cartItems.length === 0 && balance >= totalPrice) {
             setEmptyCartError(true);
+        } else if (auth() != null && cartItems.length > 0 && balance < totalPrice) {
+            setNotEnoughMoneyError(true);
+        } else {
+            setUnknownError(true);
         }
     };
 
@@ -174,6 +198,16 @@ export const CartPage = () => {
             <Snackbar open={successfulPurchase} onClose={handleAlertClose} autoHideDuration={3000}>
                 <Alert onClose={handleAlertClose} severity="success" variant="filled">
                     Thank you for your purchase! You will receive an email with your booking details shortly.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={notEnoughMoneyError} onClose={handleAlertClose} autoHideDuration={3000}>
+                <Alert onClose={handleAlertClose} severity="error" variant="filled">
+                    You do not have enough money to complete this purchase.
+                </Alert>
+            </Snackbar>
+            <Snackbar open={unknownError} onClose={handleAlertClose} autoHideDuration={3000}>
+                <Alert onClose={handleAlertClose} severity="error" variant="filled">
+                    An unknown error has occurred.
                 </Alert>
             </Snackbar>
         </div>

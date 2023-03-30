@@ -4,6 +4,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import { Paper, Typography, Stack, Button } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 export const ProfileDashboardPage = () => {
 
@@ -16,6 +18,7 @@ export const ProfileDashboardPage = () => {
     });
 
     const [elevation, setElevation] = useState(12);
+    const [balance, setBalance] = useState(0);
 
     useEffect(() => {
         const title = document.title;
@@ -36,12 +39,34 @@ export const ProfileDashboardPage = () => {
         }
     }, []);
 
+    useEffect(()=>{
+        getBalance();
+    })
+
     const auth = useAuthUser();
     const signOut = useSignOut();
+    const navigate = useNavigate();
 
     const handleSignOut = () => {
         signOut();
-    }
+    };
+
+    const handleAddMoney = () => {
+        navigate('/transferMoney');
+    };
+
+    const getBalance = () => {
+        const user_id: number = auth()!.id;
+        Axios.get('http://localhost:3002/getBalance', { params: { user_id: user_id } })
+            .then((res) => {
+                if (res.status === 201) {
+                    setBalance(res.data.balance);
+                } else if (res.status === 500) {
+                    alert('Server error');
+                    console.log('Server error');
+                }
+            })
+    };
 
     return (
         <div>
@@ -56,18 +81,29 @@ export const ProfileDashboardPage = () => {
                         <i>{auth()!.email}</i>
                     </Typography>
                     <Typography color='white' fontSize={50} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-150px' }}>
-                        Account Balance: <br /> <b>${auth()!.balance ? auth()!.balance : '0.00'}</b>
+                        Account Balance: <br /> <b>${balance}</b>
                     </Typography>
                     <ThemeProvider theme={customTheme}>
+                        <Stack direction='row' justifyContent='center' spacing={2}>
                         <Button 
                         variant='outlined' 
                         color='primary' 
-                        style={{ position: 'relative', top: '-210px', borderWidth: '5px', width: '400px', alignSelf: 'center' }}
+                        style={{ position: 'relative', top: '-210px', borderWidth: '5px', width: '400px', alignSelf: 'center', height: '100px' }}
                         onClick={handleSignOut}>
-                            <Typography color='white' fontSize={50} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '0px' }}>
+                            <Typography color='white' fontSize={40} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '0px' }}>
                                 Sign Out
                             </Typography>
                         </Button>
+                        <Button
+                        variant='outlined'
+                        color='primary'
+                        style={{ position: 'relative', top: '-210px', borderWidth: '5px', width: '400px', alignSelf: 'center', height: '100px' }}
+                        onClick={handleAddMoney}>
+                            <Typography color='white' fontSize={38} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '0px' }}>
+                                Transfer money
+                            </Typography>
+                        </Button>
+                        </Stack>
                     </ThemeProvider>
                 </Stack>
             </Paper>

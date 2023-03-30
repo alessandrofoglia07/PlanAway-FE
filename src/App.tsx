@@ -12,6 +12,7 @@ import { SignUpPage } from './pages/signUp';
 import { LoginPage } from './pages/login';
 import { ProfileDashboardPage } from './pages/profileDashboard';
 import { RequireAuth } from 'react-auth-kit';
+import { TransferMoneyPage } from './pages/transferMoney';
 
 // npm start to run
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
           <Route path='/signup' element={<SignUpPage />} />
           <Route path='/login' element={<LoginPage />} />
           <Route path='/profile' element={<RequireAuth loginPath='/login'><ProfileDashboardPage /></RequireAuth>} />
+          <Route path='/transferMoney' element={<RequireAuth loginPath='/login'><TransferMoneyPage /></RequireAuth>} />
           <Route path='/cart' element={<CartPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
