@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavBar } from '../components/navbar';
 import { useParams } from 'react-router-dom';
 import { Typography } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Axios from 'axios';
 
 export const VerifyEmailPage = () => {
@@ -9,11 +10,29 @@ export const VerifyEmailPage = () => {
     const [verificationResult, setVerificationResult] = useState<any>(null);
 
     useEffect(() => {
+        const title = document.title;
+        if (title.includes('About') === false) {
+            document.title = 'PlanAway | Verify Email';
+        }
+    }, []);
+
+    const customTheme = createTheme({
+        typography: {
+            fontFamily: [
+                'Source Sans Pro',
+                'sans-serif'
+            ].join(','),
+        }
+    })
+
+    useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const response = await Axios.get(`http://localhost:3002/verify/${token}`);
-                if (response && response.data && response.data.message) {
-                    setVerificationResult(response.data);
+                const res = await Axios.get(`http://localhost:3002/verify/${token}`);
+                console.log(res.data.message);
+                if (res && res.data) {
+                    setVerificationResult(res.data.message);
+                    console.log(res.data.message)
                 } else {
                     throw new Error('Something went wrong');
                 }
@@ -24,20 +43,23 @@ export const VerifyEmailPage = () => {
         };
 
         verifyEmail();
-
     }, [token]);
 
     return (
         <div>
             <NavBar />
             {verificationResult ? (
-                <Typography variant='h4' align='center' sx={{ mt: 5 }}>
-                    {verificationResult.message}
-                </Typography>
+                <ThemeProvider theme={customTheme}>
+                    <Typography variant='h1' align='center' sx={{ mt: 30 }} className="aboutPageTitle">
+                        <strong>{verificationResult}</strong>
+                    </Typography>
+                </ThemeProvider>
             ) : (
-                <Typography variant='h4' align='center' sx={{ mt: 5 }}>
-                    Verifying...
-                </Typography>
+                <ThemeProvider theme={customTheme}>
+                    <Typography variant='h1' align='center' sx={{ mt: 30 }} className="aboutPageTitle">
+                        <strong>Verifying...</strong>
+                    </Typography>
+                </ThemeProvider>
             )}
         </div>
     )
