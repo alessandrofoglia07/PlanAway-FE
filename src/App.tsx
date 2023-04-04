@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Routes} from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { BookPage } from './pages/book';
 import { MainPage } from './pages/main';
 // eslint-disable-next-line
@@ -13,6 +14,7 @@ import { LoginPage } from './pages/login';
 import { ProfileDashboardPage } from './pages/profileDashboard';
 import { RequireAuth } from 'react-auth-kit';
 import { TransferMoneyPage } from './pages/transferMoney';
+import { VerifyEmailPage } from './pages/verifyEmail';
 
 // npm start to run
 export default function App() {
@@ -28,6 +30,7 @@ export default function App() {
           <Route path='/profile' element={<RequireAuth loginPath='/login'><ProfileDashboardPage /></RequireAuth>} />
           <Route path='/transferMoney' element={<RequireAuth loginPath='/login'><TransferMoneyPage /></RequireAuth>} />
           <Route path='/cart' element={<CartPage />} />
+          <Route path='/verify/:token' element={<VerifyEmailPage />} />
           <Route path='*' element={<NotFoundPage />} />
         </Routes>
       </div>

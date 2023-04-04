@@ -78,7 +78,7 @@ export const SignUpForm = () => {
     .then((res)=>{
       if (res.data.message === 'Email is already registered') {
         console.log('%cAxios: Email already exists', 'color: cyan');
-        setSignupError(true);
+        setSignupError(true); 
       } else if (res.data.message === 'User created') {
         console.log('%cAxios: Account created', 'color: cyan');
         setSignupSuccess(true);
@@ -167,7 +167,7 @@ export const SignUpForm = () => {
         <Alert severity='error' variant='filled' onClose={handleErrorAlertClose}>Email already exists.</Alert>
       </Snackbar>
       <Snackbar open={signupSuccess} autoHideDuration={2000} onClose={handleErrorAlertClose}>
-        <Alert severity='success' variant='filled' onClose={handleErrorAlertClose}>Account created. Go to <Link href='/login' sx={{color: 'white'}} underline='always'>Login</Link>.</Alert>
+        <Alert severity='success' variant='filled' onClose={handleErrorAlertClose}>Sign up successful. You will receive a verification email soon.</Alert>
       </Snackbar>
     </div>
   )

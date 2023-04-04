@@ -91,7 +91,7 @@ export const LoginForm = () => {
       } else if (res.data.message === 'Incorrect password') {
         console.log('%cAxios: Incorrect password', 'color: cyan');
         setIncorrectPwdError(true);
-      } else if (res.data.message === 'Email is not registered') {
+      } else if (res.data.message === 'Email is not registered or email is not verified') {
         console.log('%cAxios: Email is not registered', 'color: cyan');
         setEmailNotRegisteredError(true);
       } else if (res.status === 500) {
@@ -170,7 +170,7 @@ export const LoginForm = () => {
       </Snackbar>
       <Snackbar open={emailNotRegisteredError} onClose={handleAlertClose} autoHideDuration={2000}>
         <Alert severity='error' variant='filled' onClose={handleAlertClose}>
-          Email is not registered.
+          Email is not registered or not verified.
         </Alert>
       </Snackbar>
       <Snackbar open={serverError} onClose={handleAlertClose} autoHideDuration={2000}>
