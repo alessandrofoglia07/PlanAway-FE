@@ -10,7 +10,7 @@ export const Card = (props: {id: number, img: string, name: string, description:
     }
 
     return (
-        <div>
+        <div className='bookingCard'>
             <Box width='300px'>
                 <MuiCard elevation={8} sx={{margin: 1, padding: 1}} className='card'>
                     <CardMedia

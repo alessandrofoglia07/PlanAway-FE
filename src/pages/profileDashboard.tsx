@@ -19,6 +19,7 @@ export const ProfileDashboardPage = () => {
 
     const [elevation, setElevation] = useState(12);
     const [balance, setBalance] = useState(0);
+    const [smallerScreen, setSmallerScreen] = useState(false);
 
     useEffect(() => {
         const title = document.title;
@@ -36,7 +37,21 @@ export const ProfileDashboardPage = () => {
             form.addEventListener('mouseleave', () => {
                 setElevation(12);
             });
+        };
+    }, []);
+
+    const handleResize = () => {
+        const width = window.innerWidth;
+        if (width < 768) {
+            setSmallerScreen(true);
+        } else {
+            setSmallerScreen(false);
         }
+    }
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        handleResize();
     }, []);
 
     useEffect(()=>{
@@ -74,20 +89,20 @@ export const ProfileDashboardPage = () => {
             <Paper elevation={elevation} className='profileDashboard' id='paper'>
                 <Stack justifyContent='center' spacing={10}>
                     <PersonIcon sx={{ fontSize: 130, color: 'white', position: 'relative', top: '50px', alignSelf: 'center' }} />
-                    <Typography color='white' fontSize={60} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-10px' }}>
+                    <Typography color='white' fontSize={smallerScreen ? 40 : 60} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-10px' }}>
                        Hello {auth()!.username}
                     </Typography>
-                    <Typography color='white' fontSize={30} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-100px' }}>
+                    <Typography color='white' fontSize={smallerScreen ? 20 : 30} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-100px' }}>
                         <i>{auth()!.email}</i>
                     </Typography>
-                    <Typography color='white' fontSize={50} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-150px' }}>
+                    <Typography color='white' fontSize={smallerScreen ? 40 : 50} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '-150px' }}>
                         Account Balance: <br /> <b>${balance}</b>
                     </Typography>
                     <ThemeProvider theme={customTheme}>
-                        <Stack direction='row' justifyContent='center' spacing={2}>
+                        <Stack direction='row' justifyContent='center' spacing={0} sx={{flexWrap: 'wrap'}}>
                         <Button 
                         variant='outlined' 
-                        color='primary' 
+                        color='primary'
                         style={{ position: 'relative', top: '-210px', borderWidth: '5px', width: '400px', alignSelf: 'center', height: '100px' }}
                         onClick={handleSignOut}>
                             <Typography color='white' fontSize={40} sx={{ fontFamily: 'Futura', textAlign: 'center', position: 'relative', top: '0px' }}>

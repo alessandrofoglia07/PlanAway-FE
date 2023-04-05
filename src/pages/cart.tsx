@@ -1,4 +1,4 @@
-import {  TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton, Snackbar, Alert } from "@mui/material";
+import {  TableContainer, Table, TableBody, TableHead, TableRow, TableCell, Paper, Stack, Button, IconButton, Snackbar, Alert, Typography } from "@mui/material";
 import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import RemoveShoppingCartIcon from '@mui/icons-material/RemoveShoppingCart';
 import { NavBar } from "../components/navbar";
@@ -22,6 +22,7 @@ export const CartPage = () => {
     const [notEnoughMoneyError, setNotEnoughMoneyError] = useState(false);
     const [unknownError, setUnknownError] = useState(false);
     const [balance, setBalance] = useState(0);
+    const [width, setWidth] = useState<string>('70vw');
 
     const auth = useAuthUser();
 
@@ -46,6 +47,11 @@ export const CartPage = () => {
         }
         getBalance();
     });
+
+    useEffect(() => {
+        window.addEventListener('resize', handleResize);
+        handleResize();
+    }, []);
 
     const getBalance = () => {
         const user_id: number = auth()!.id;
@@ -121,11 +127,20 @@ export const CartPage = () => {
         }
     };
 
+    const handleResize = () => {
+        const w = window.innerWidth;
+        if (w < 768) {
+            setWidth('100vw')
+        } else {
+            setWidth('70vw')
+        }
+    }
+
     return (
         <div>
             <NavBar/>
             <Stack direction='row' sx={{flexWrap: 'wrap'}} className='cartPage' justifyContent='center'>
-                <TableContainer className="scrollableTable" component={Paper} sx={{height: 'calc(95vh - 120px)', width: '70vw'}}>
+                <TableContainer className="scrollableTable" component={Paper} sx={{ height: 'calc(95vh - 120px)', width: {width} }}>
                     <Table stickyHeader>
                         <TableHead>
                             <TableRow>
@@ -161,27 +176,32 @@ export const CartPage = () => {
                             variant="contained"    
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#5DBF9A', color: 'white', fontSize: '20px', minWidth: '200px'}}
+                            sx={{ backgroundColor: '#5DBF9A', color: 'white', fontSize: '20px', minWidth: '100px'}}
                             onClick={handleConfirm}>
+                                <Typography>
                                 Confirm purchase of <br /> ${totalPrice}
+                                </Typography>
                             </Button>
                             <Button 
                             variant="contained" 
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#91BE77', color: 'white', fontSize: '20px', minWidth: '200px' }}
+                            sx={{ backgroundColor: '#91BE77', color: 'white', fontSize: '20px', minWidth: '100px' }}
                             href='/book'>
+                                <Typography>
                                 Continue booking
+                                </Typography>
                             </Button>
                             <Button 
                             variant="contained" 
                             color='success' 
                             size="large" 
-                            sx={{ backgroundColor: '#B9BD5C', color: 'white', fontSize: '20px', minWidth: '200px' }}
+                            sx={{ backgroundColor: '#B9BD5C', color: 'white', fontSize: '20px', minWidth: '100px' }}
                             onClick={clearCart1}
-                            endIcon={<RemoveShoppingCartIcon />}
-                            >
+                            endIcon={<RemoveShoppingCartIcon />}>
+                                <Typography>
                                 Clear cart
+                                </Typography>
                             </Button>
                         </Stack>
             </Stack>

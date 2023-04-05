@@ -93,14 +93,14 @@ export const MainPage = () => {
                 <div className='bgShadowMainPage'/>
                 <ThemeProvider theme={titleTheme}>
                     <Stack direction='row' justifyContent='center'>
-                        <Typography variant='h1' className='textMainPage' sx={{color: 'white', fontSize: '8rem', position: 'absolute', top: '20%'}}>
+                        <Typography variant='h1' className='textMainPage' sx={{color: 'white', position: 'absolute', top: '20%'}}>
                             PlanAway
                         </Typography>
                     </Stack>
                 </ThemeProvider>
                 <Stack direction='row' justifyContent='center'>
-                    <Typography variant='h1' className='subtitleMainPage' style={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%'}}>
-                        Plan your trip. Now.
+                    <Typography variant='h1' className='subtitleMainPage' sx={{color: 'white', fontSize: '2rem', position: 'absolute', top: '40%' }}>
+                    Plan your trip. Now.
                     </Typography>
                 </Stack>
                 <Stack direction='row' alignItems='center' justifyContent='space-evenly' spacing={spacing}>

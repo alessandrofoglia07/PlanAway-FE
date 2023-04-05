@@ -66,8 +66,8 @@ export const BookPage = () => {
     return (
         <div className="bookPage">
             <NavBar />
-            <Stack direction='row' spacing={2} sx={{flexWrap: 'wrap'}}>
-                <div style={{left: '30px'}} />
+            <Stack direction='row' spacing={2} className="bookPageStack">
+                <div className="fixDivBookpage" style={{left: '30px'}} />
                 <Card 
                 id={1}
                 img={"https://cdn.ceoworld.biz/wp-content/uploads/2020/06/Santorini.jpg"} 

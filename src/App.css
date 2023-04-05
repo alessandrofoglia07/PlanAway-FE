@@ -13,12 +13,64 @@
   overflow-x: hidden;
 }
 
-.mainPageBG {
-  width: 100svw;
-  width: 100vw;
-  height: 100svh;
-  height: 100vh;
-  z-index: 0;
+/* Smaller screens */
+@media only screen and (max-width: 768px) {
+  .mainPageBG {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    width: 1000px;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .bgShadowMainPage {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: black;
+    opacity: 0.5;
+    width: 1000px;
+    height: 100%;
+  }
+
+  .bookPageStack {
+    flex-wrap: wrap;
+  }
+
+  .bookPageStack div {
+    width: 94%;
+  }
+
+  .profileDashboard {
+    width: 90vw;
+    height: 90vh;
+    font-size: 30rem;
+  }
+}
+
+/* Bigger screens */
+@media only screen and (min-width: 768px) {
+  .mainPageBG {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  .bgShadowMainPage {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: black;
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+  }
+
+  .bookPageStack {
+    flex-wrap: wrap;
+  }
 }
 
 .aboutPageTitle{
@@ -47,10 +99,12 @@
 
 ::-webkit-scrollbar {
     width: 0; 
+    height: 0;
 }
 
 .scrollableTable::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 .scrollableTable::-webkit-scrollbar-track {
@@ -96,9 +150,9 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    width: 45svw;
-    width: 45vw;
+    transform: translate(-50%, -47%);
+    width: 70svw;
+    width: 70vw;
     min-width: 300px;
     height: 70svh;
     height: 70vh;
@@ -118,7 +172,7 @@
 
 @media only screen and (max-width: 1250px) {
   .profileDashboard {
-      width: 65vw;
+      width: 80vw;
       height: 90vh;
       font-size: 30rem;
     }
@@ -145,16 +199,6 @@
   height: 100%;
   z-index: 0;
   object-fit: contain;
-}
-
-.bgShadowMainPage {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  background-color: black;
-  opacity: 0.5;
-  width: 100%;
-  height: 100%;
 }
 
 .bookingMenu {
