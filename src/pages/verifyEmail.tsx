@@ -18,27 +18,23 @@ export const VerifyEmailPage = () => {
 
     const customTheme = createTheme({
         typography: {
-            fontFamily: [
-                'Source Sans Pro',
-                'sans-serif'
-            ].join(','),
+            fontFamily: ['Source Sans Pro', 'sans-serif'].join(',')
         }
-    })
+    });
 
     useEffect(() => {
         const verifyEmail = async () => {
             try {
-                const res = await Axios.get(`http://localhost:3002/verify/${token}`);
+                const res = await Axios.get(`http://localhost:3002/api/auth/verify/${token}`);
                 console.log(res.data.message);
                 if (res && res.data) {
                     setVerificationResult(res.data.message);
-                    console.log(res.data.message)
+                    console.log(res.data.message);
                 } else {
                     throw new Error('Something went wrong');
                 }
-            }
-            catch (error : any) {
-                setVerificationResult({ message: error.message})
+            } catch (error: any) {
+                setVerificationResult({ message: error.message });
             }
         };
 
@@ -50,17 +46,17 @@ export const VerifyEmailPage = () => {
             <NavBar />
             {verificationResult ? (
                 <ThemeProvider theme={customTheme}>
-                    <Typography variant='h1' align='center' sx={{ mt: 30 }} className="aboutPageTitle">
+                    <Typography variant='h1' align='center' sx={{ mt: 30 }} className='aboutPageTitle'>
                         <strong>{verificationResult}</strong>
                     </Typography>
                 </ThemeProvider>
             ) : (
                 <ThemeProvider theme={customTheme}>
-                    <Typography variant='h1' align='center' sx={{ mt: 30 }} className="aboutPageTitle">
+                    <Typography variant='h1' align='center' sx={{ mt: 30 }} className='aboutPageTitle'>
                         <strong>Verifying...</strong>
                     </Typography>
                 </ThemeProvider>
             )}
         </div>
-    )
-}
+    );
+};
